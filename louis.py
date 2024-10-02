@@ -101,5 +101,11 @@ def main():
         vL, vR  = compute_speed(er)
         command_motors(vL, vR)
         
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            cap.release()
+            cv2.destroyAllWindows()
+            break
+        
+        
 
 main()
