@@ -43,7 +43,7 @@ def main():
     while True:
         input_cmd = input("Entrer position (x, y, teta): ")
         print("Commande reçu : ", input_cmd)
-        values = input_cmd.strip.split(',')
+        values = input_cmd.split(',')
 
         x = float(values[0].strip())
         y = float(values[1].strip())
