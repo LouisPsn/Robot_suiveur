@@ -36,13 +36,10 @@ def analyse_image():
         center_x = x + w // 2
 
         _, width, _ = frame.shape
-    
-    print(center_x)
-    
-    er = center_x/width
-    er = er*150
-    
-    return er   
+        
+        
+        er = (center_x/width - 0.5)*2*200
+        return er   
     
     
     
