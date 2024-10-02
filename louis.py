@@ -38,7 +38,7 @@ def analyse_image():
         _, width, _ = frame.shape
         
         
-        er = (center_x/width - 0.5)*2*400
+        er = (center_x/width - 0.5)*2*200
     else:
         er = 0    
         
