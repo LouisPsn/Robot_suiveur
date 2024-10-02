@@ -19,7 +19,7 @@ def analyse_image():
     try:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     except:
-        continue
+        pass
 
     lower_blue = np.array([60, 140, 160]) 
     upper_blue = np.array([180, 255, 255])  
