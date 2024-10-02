@@ -14,62 +14,31 @@ dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
 
 def analyse_image():
-    
-    image_width = 400
-    
-    _, frame = cap.read() 
-    # It converts the BGR color space of image to HSV color space 
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) 
-      
-    # Threshold of blue in HSV space 
+    _, frame = cap.read()
+
+    try:
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    except:
+        continue
+
     lower_blue = np.array([60, 140, 160]) 
     upper_blue = np.array([180, 255, 255])  
-    # Threshold of red in HSV space 
-    # lower_red = np.array([50,25,25])
-    # upper_red = np.array([310,255,255])
-  
-    # preparing the mask to overlay 
+
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    mask = cv2.erode(mask, None, iterations=2)
+    mask = cv2.dilate(mask, None, iterations=2)
+
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if contours:
+        c = max(contours, key=cv2.contourArea)
+        x, _, w, _ = cv2.boundingRect(c)
+        
+        center_x = x + w // 2
+
+        _, width, _ = frame.shape
     
-    # cv2.imshow('frame', frame) 
-    # cv2.imshow('mask', mask)
-    
-    height, width = mask.shape
-    
-    left = 0
-    right = 0
-    
-    check = False
-    
-    for i in range (width//2, width - 1):
-        print(mask[height//2, i])
-        if (mask[height//2, i] - mask[height//2, i + 1] > 10 or mask[height//2, i] - mask[height//2, i + 1] < -10):
-            if check == False:
-                left = i
-                check = True
-            else:
-                right = i
-            if i < width - 1 + 5:
-                i += 5
-            else:
-                i = width - 1
-    
-    
-    for i in range (0, width//2 - 1):
-        print(mask[height//2, i])
-        if (mask[height//2, i] - mask[height//2, i + 1] > 10 and mask[height//2, i] - mask[height//2, i + 1] < -10):
-            if check == False:
-                left = i
-                check = True
-            else:
-                right = i
-            if i < width//2 - 1 + 5:
-                i += 5
-            else:
-                i = width//2 - 1
-    er = (left + right)//2 - width//2
-    
-    er = i - width//2
+    er = center_x/width
+    er = er*150
     
     return er   
     

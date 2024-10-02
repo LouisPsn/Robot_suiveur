@@ -36,38 +36,9 @@ def analyse_image():
     
     height, width = mask.shape
     
-    left = 0
-    right = 0
-    
-    check = False
-    
-    for i in range (width//2, width - 1):
-        if (mask[height//2, i] - mask[height//2, i + 1] > 10 or mask[height//2, i] - mask[height//2, i + 1] < -10):
-            if check == False:
-                left = i
-                check = True
-            else:
-                right = i
-            if i < width - 1 + 5:
-                i += 5
-            else:
-                i = width - 1
-    
-    
-    for i in range (0, width//2 - 1):
-        if (mask[height//2, i] - mask[height//2, i + 1] > 10 and mask[height//2, i] - mask[height//2, i + 1] < -10):
-            if check == False:
-                left = i
-                check = True
-            else:
-                right = i
-            if i < width//2 - 1 + 5:
-                i += 5
-            else:
-                i = width//2 - 1
+    hist = cv2.calcHist([mask],[0],None,[256],[0,256])
                 
-    print(width)
-    er = (left + right)//2 - width//2
+    
     
     er = i - width//2
     er = er * image_width
