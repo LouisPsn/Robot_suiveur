@@ -32,9 +32,8 @@ def analyse_image():
     # preparing the mask to overlay 
     mask = cv2.inRange(hsv, lower_red, upper_red)
     
-    cv2.imshow('frame', frame) 
-    cv2.imshow('mask', mask)
-    cv2.waitKey(14)  
+    # cv2.imshow('frame', frame) 
+    # cv2.imshow('mask', mask)
     
     height, width = mask.shape
     
@@ -44,22 +43,31 @@ def analyse_image():
     check = False
     
     for i in range (width//2, width - 1):
-        mem = mask[height//2, i]
-        if (abs(mem - mask[height//2, i + 1])):
+        print(mask[height//2, i])
+        if (mask[height//2, i] - mask[height//2, i + 1] > 10 or mask[height//2, i] - mask[height//2, i + 1] < -10):
             if check == False:
                 left = i
                 check = True
             else:
                 right = i
+            if i < width - 1 + 5:
+                i += 5
+            else:
+                i = width - 1
     
-    for i in range (width//2, width - 1):
-        mem = mask[height//2, i]
-        if (abs(mem - mask[height//2, i + 1])):
+    
+    for i in range (0, width//2 - 1):
+        print(mask[height//2, i])
+        if (mask[height//2, i] - mask[height//2, i + 1] > 10 and mask[height//2, i] - mask[height//2, i + 1] < -10):
             if check == False:
                 left = i
                 check = True
             else:
                 right = i
+            if i < width//2 - 1 + 5:
+                i += 5
+            else:
+                i = width//2 - 1
     er = (left + right)//2 - width//2
     
     er = i - width//2
@@ -99,7 +107,7 @@ def compute_speed(er):
         vR = DR/DL*360
     else:
         # the robot need to turn left (right motor turn faster)
-        er = math.abs(er)
+        er = abs(er)
         theta = math.atan(er/x)
         r = x/math.sin(theta)
         rL = r - robot_width//2
