@@ -2,7 +2,7 @@ import cv2
 import numpy as np 
 
 # Set up camera
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while(1):
     _, frame = cap.read() 
