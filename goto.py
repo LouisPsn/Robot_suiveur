@@ -41,9 +41,8 @@ def init():
 def main():
     dxl = init()
     actu_position = dxl.get_present_position([1])
-    print("Position cible du moteur 1:", actu_position[0])
-    goal_position = dxl.get_goal_position([1])
-    print("Position cible du moteur 1:", goal_position[0])
+    current_position = dxl_io.get_present_position([1])
+    print(f"Position actuelle du moteur 1 (en degrés): {current_position[0]}")
     # while True:
     #     input_cmd = input("Entrer position (x, y, teta): ")
     #     print("Commande reçu : ", input_cmd)
