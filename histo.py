@@ -29,9 +29,12 @@ while(1):
         center_x = x + w // 2
         _, width, _ = frame.shape
 
-        er = (center_x/width - 0.5)*2*200
+        er = (center_x/width - 0.5)*2*50
+    else:
+        er = 0    
         
-        print(er)
+    print(er)
+        
     
     if cv2.waitKey(1) & 0xFF == ord('q'):
         cap.release()
