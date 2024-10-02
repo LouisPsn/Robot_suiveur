@@ -1,0 +1,57 @@
+import pypot.dynamixel
+from time import sleep
+
+# found_ids = dxl_io.scan()
+# print('Found ids:', found_ids)
+
+# ids = found_ids[:2]
+# print(ids)
+
+#set_moving_speed({idmoteur : angle de rotation})
+motors_id = [1, 2]
+
+
+def set_direction(dxl, motor, speed):
+    dxl.set_moving_speed({motor: int(speed)}) # id_moteur : degrés/sec
+
+def stop_motors(dxl):
+    for motor in motors_id:
+        print("Arret moteur n° ", motor)
+        dxl.set_moving_speed({motor : 0})
+
+def init():
+    ports = pypot.dynamixel.get_available_ports()
+    if not ports:
+        exit('No port')
+    print(ports)
+
+    dxl_io = pypot.dynamixel.DxlIO(ports[0])
+    dxl_io.enable_torque(motors_id)
+    dxl_io.set_wheel_mode([1])
+    return dxl_io
+
+def main():
+    dxl = init()
+    # dxl.set_moving_speed({1 : - 100})
+    # dxl.set_moving_speed({2 : 100})
+    # sleep(5)
+    # dxl.set_moving_speed({1 : 0})
+    # dxl.set_moving_speed({2 : 0})
+    while True:
+        input_cmd = input("Commande ('int_degres_seconde') : ")
+        print("Commande reçu : ", input_cmd)
+
+        if input_cmd == "stop":
+            stop_motors(dxl)
+        else:
+            for motor in motors_id:
+                motor_cmd = input_cmd 
+                print(motor)
+                if motor == 1:
+                    motor_cmd = - (int(motor_cmd))
+                    print(motor_cmd)
+                set_direction(dxl, motor, motor_cmd)
+
+
+main()
+
