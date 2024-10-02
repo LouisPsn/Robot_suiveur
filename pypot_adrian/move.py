@@ -15,7 +15,7 @@ def set_direction(dxl, motor, speed):
     dxl.set_moving_speed({motor: int(speed)}) # id_moteur : degrés/sec
 
 def set_all_motors(dxl, speed):
-    for motor in motors:
+    for motor in motors_id:
         speed_cmd = speed
         print(motor)
         if motor == 1 and speed_cmd != 0: # Motor 1 inversé
