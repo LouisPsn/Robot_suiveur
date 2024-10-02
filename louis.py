@@ -7,10 +7,10 @@ import pypot.dynamixel
 cap = cv2.VideoCapture(0)
 
 # Set up motors
-# ports = pypot.dynamixel.get_available_ports()
-# if not ports:
-#     exit('No port')
-# dxl_io = pypot.dynamixel.DxlIO(ports[0])
+ports = pypot.dynamixel.get_available_ports()
+if not ports:
+    exit('No port')
+dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
 
 def analyse_image():
@@ -105,7 +105,7 @@ def main():
     while(1):
         er = analyse_image()
         vL, vR  = compute_speed(er)
-        # command_motors(vL, vR)
+        command_motors(vL, vR)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             cap.release()
