@@ -22,14 +22,14 @@ def analyse_image():
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) 
       
     # Threshold of blue in HSV space 
-    # lower_blue = np.array([60, 140, 160]) 
-    # upper_blue = np.array([180, 255, 255])  
+    lower_blue = np.array([60, 140, 160]) 
+    upper_blue = np.array([180, 255, 255])  
     # Threshold of red in HSV space 
-    lower_red = np.array([50,25,25])
-    upper_red = np.array([310,255,255])
+    # lower_red = np.array([50,25,25])
+    # upper_red = np.array([310,255,255])
   
     # preparing the mask to overlay 
-    mask = cv2.inRange(hsv, lower_red, upper_red)
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
     
     # cv2.imshow('frame', frame) 
     # cv2.imshow('mask', mask)
@@ -130,7 +130,7 @@ def main():
     while(1):
         er = analyse_image()
         vL, vR  = compute_speed(er)
-        # command_motors(vL, vR)
+        command_motors(vL, vR)
         
 
 main()
