@@ -7,8 +7,6 @@ if not ports:
     exit('No port')
 dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
-found_ids = dxl_io.scan()
-ids = found_ids[:2]
 
 
 
