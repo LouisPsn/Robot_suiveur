@@ -65,10 +65,15 @@ def analyse_image():
                 i += 5
             else:
                 i = width//2 - 1
+                
+    print(width)
     er = (left + right)//2 - width//2
     
     er = i - width//2
     er = er * image_width
+    
+    
+    # print(er)
     
     return er   
     
@@ -86,8 +91,6 @@ def compute_speed(er):
     vL = 0
     vR = 0
     
-    print(er)
-    
     if (er < 10 and er > -10):
         # same motor speed
         dxl_io.set_moving_speed({1: -360}) # Degrees / s
@@ -100,6 +103,10 @@ def compute_speed(er):
         # the robot need to turn left (right motor turn faster)
         dxl_io.set_moving_speed({1: 0}) # Degrees / s
         dxl_io.set_moving_speed({2: 360}) # Degrees / s
+        
+    if cv2.waitKey(1) == ord('q'):
+        cv2.destroyAllWindows() 
+        cap.release()
     
 
 def command_motors(vL, vR):
