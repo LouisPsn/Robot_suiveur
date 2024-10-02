@@ -59,11 +59,11 @@ def compute_speed(er):
     vR = 0
     
     
-    if (er < 0.01 and er > -0.01):
+    if (er < 10 and er > -10):
         # same motor speed
         vL = 360
         vR = 360
-    elif er > 00.01 :
+    elif er > 10 :
         # the robot need to turn right (left motor turn faster)
         theta = math.atan(er/x)
         r = x/math.sin(theta)
