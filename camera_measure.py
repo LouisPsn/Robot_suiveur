@@ -4,10 +4,11 @@ import numpy as np
 # Set up camera
 cap = cv2.VideoCapture(0)
 
-_, frame = cap.read() 
-cv2.imshow('frame', frame) 
+while(1):
+    _, frame = cap.read() 
+    cv2.imshow('frame', frame) 
 
-cv2.waitKey(0) 
+    cv2.waitKey(14)
 
 cv2.destroyAllWindows() 
 cap.release()
