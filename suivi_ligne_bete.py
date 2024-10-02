@@ -42,7 +42,6 @@ def analyse_image():
     check = False
     
     for i in range (width//2, width - 1):
-        print(mask[height//2, i])
         if (mask[height//2, i] - mask[height//2, i + 1] > 10 or mask[height//2, i] - mask[height//2, i + 1] < -10):
             if check == False:
                 left = i
@@ -56,7 +55,6 @@ def analyse_image():
     
     
     for i in range (0, width//2 - 1):
-        print(mask[height//2, i])
         if (mask[height//2, i] - mask[height//2, i + 1] > 10 and mask[height//2, i] - mask[height//2, i + 1] < -10):
             if check == False:
                 left = i
@@ -88,7 +86,7 @@ def compute_speed(er):
     vL = 0
     vR = 0
     
-    
+    print(er)
     
     if (er < 0.01 and er > -0.01):
         # same motor speed
