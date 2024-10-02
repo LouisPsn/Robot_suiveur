@@ -33,7 +33,7 @@ def init():
         exit('No port')
     print(ports)
 
-    dxl_io = pypot.dynamixel.DxlIO(ports[0])
+    dxl_io = pypot.dynamixel.DxlIO(ports[0], convert=True)
     dxl_io.enable_torque(motors_id)
     dxl_io.set_wheel_mode([1])
     return dxl_io
