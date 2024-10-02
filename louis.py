@@ -97,7 +97,7 @@ def compute_speed(er):
 
 def command_motors(vL, vR):
     dxl_io.set_wheel_mode([1])
-    dxl_io.set_moving_speed({1: -vR}) # Degrees / s
+    dxl_io.set_moving_speed({1: -vL}) # Degrees / s
     dxl_io.set_moving_speed({2: vR}) # Degrees / s
 
 
