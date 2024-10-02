@@ -19,7 +19,7 @@ def set_all_motors(dxl, speed):
         speed_cmd = speed
         print(motor)
         if motor == 1 and speed_cmd != 0: # Motor 1 inversé
-            speed_cmd = - (int(speed_cmd))
+            speed_cmd = - (speed_cmd)
             print(speed_cmd)
         dxl.set_moving_speed({motor : speed_cmd})
 
@@ -27,6 +27,8 @@ def test1(dxl, speed):
     set_all_motors(dxl, speed)
     sleep(2)
     set_all_motors(dxl, 0)
+    sleep(2)
+    set_all_motors(dxl, -(speed))
 
 
 def stop_motors(dxl):
@@ -61,7 +63,8 @@ def main():
         if input_cmd == "t":
             test1(dxl, 10)
         else:
-            set_all_motors(dxl, input_cmd)
+            speed = int(input_cmd)
+            set_all_motors(dxl, speed)
 
 
 main()
