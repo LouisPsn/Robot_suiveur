@@ -22,7 +22,7 @@ def analyse_image():
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) 
       
     # Threshold of blue in HSV space 
-    lower_blue = np.array([60, 140, 160]) 
+    lower_blue = np.array([60, 35, 140]) 
     upper_blue = np.array([180, 255, 255])  
     # Threshold of red in HSV space 
     # lower_red = np.array([50,25,25])
@@ -70,6 +70,7 @@ def analyse_image():
     er = (left + right)//2 - width//2
     
     er = i - width//2
+    er = er * image_width
     
     return er   
     
@@ -86,6 +87,7 @@ def compute_speed(er):
     
     vL = 0
     vR = 0
+    
     
     
     if (er < 0.01 and er > -0.01):
