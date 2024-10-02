@@ -61,7 +61,7 @@ def compute_speed(er):
     vR = 0
     
     
-    if (er < 5 and er > -5):
+    if (er < 20 and er > -20):
         # same motor speed
         vL = 360
         vR = 360
