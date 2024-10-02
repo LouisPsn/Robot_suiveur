@@ -40,8 +40,7 @@ def init():
 
 def main():
     dxl = init()
-    actu_position = dxl.get_present_position([1])
-    current_position = dxl_io.get_present_position([1])
+    current_position = dxl.get_present_position([1])
     print(f"Position actuelle du moteur 1 (en degrés): {current_position[0]}")
     # while True:
     #     input_cmd = input("Entrer position (x, y, teta): ")
