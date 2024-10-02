@@ -39,26 +39,30 @@ def init():
     return dxl_io
 
 def main():
-    #dxl = init()
-    while True:
-        input_cmd = input("Entrer position (x, y, teta): ")
-        print("Commande reçu : ", input_cmd)
-        values = input_cmd.split(',')
+    dxl = init()
+    actu_position = dxl.get_present_position([1])
+    print("Position cible du moteur 1:", actu_position[0])
+    goal_position = dxl.get_goal_position([1])
+    print("Position cible du moteur 1:", goal_position[0])
+    # while True:
+    #     input_cmd = input("Entrer position (x, y, teta): ")
+    #     print("Commande reçu : ", input_cmd)
+    #     values = input_cmd.split(',')
 
-        x = float(values[0].strip())
-        y = float(values[1].strip())
-        teta = float(values[2].strip())
+    #     x = float(values[0].strip())
+    #     y = float(values[1].strip())
+    #     teta = float(values[2].strip())
 
-        # Affichage des valeurs
-        print(f"x = {x}, y = {y}, teta = {teta}")
+    #     # Affichage des valeurs
+    #     print(f"x = {x}, y = {y}, teta = {teta}")
 
-        if input_cmd == "stop":
-            stop_motors(dxl)
-        if input_cmd == "t":
-            test1(dxl, 10)
-        else:
-            speed = input_cmd
-            set_all_motors(dxl, speed)
+    #     if input_cmd == "stop":
+    #         stop_motors(dxl)
+    #     if input_cmd == "t":
+    #         test1(dxl, 10)
+    #     else:
+    #         speed = input_cmd
+    #         set_all_motors(dxl, speed)
 
 
 main()
