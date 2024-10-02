@@ -88,11 +88,11 @@ def compute_speed(er):
     
     print(er)
     
-    if (er < 0.01 and er > -0.01):
+    if (er < 10 and er > -10):
         # same motor speed
         dxl_io.set_moving_speed({1: -360}) # Degrees / s
         dxl_io.set_moving_speed({2: 360}) # Degrees / s
-    elif er > 00.01 :
+    elif er > 10 :
         # the robot need to turn right (left motor turn faster)
         dxl_io.set_moving_speed({1: -360}) # Degrees / s
         dxl_io.set_moving_speed({2: 0}) # Degrees / s
