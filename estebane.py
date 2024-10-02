@@ -1,4 +1,5 @@
 import pypot.dynamixel
+import time
 
 
 # Set up motors
