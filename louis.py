@@ -39,6 +39,9 @@ def analyse_image():
         
         
         er = (center_x/width - 0.5)*2*200
+        
+        print(er)
+        
         return er   
     
     
