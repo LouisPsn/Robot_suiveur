@@ -14,6 +14,21 @@ motors_id = [1, 2]
 def set_direction(dxl, motor, speed):
     dxl.set_moving_speed({motor: int(speed)}) # id_moteur : degrés/sec
 
+def set_all_motors(dxl, speed):
+    for motor in motors:
+        speed_cmd = speed
+        print(motor)
+        if motor == 1 and speed_cmd != 0: # Motor 1 inversé
+            speed_cmd = - (int(speed_cmd))
+            print(speed_cmd)
+        dxl.set_moving_speed({motor : speed_cmd})
+
+def test1(dxl, speed):
+    set_all_motors(dxl, speed)
+    sleep(2)
+    set_all_motors(dxl, 0)
+
+
 def stop_motors(dxl):
     for motor in motors_id:
         print("Arret moteur n° ", motor)
@@ -38,19 +53,15 @@ def main():
     # dxl.set_moving_speed({1 : 0})
     # dxl.set_moving_speed({2 : 0})
     while True:
-        input_cmd = input("Commande ('int_degres_seconde') : ")
+        input_cmd = input("Définir vitesse (Unité : degrés/seconde): ")
         print("Commande reçu : ", input_cmd)
 
         if input_cmd == "stop":
             stop_motors(dxl)
+        if input_cmd == "t":
+            test1(dxl, 10)
         else:
-            for motor in motors_id:
-                motor_cmd = input_cmd 
-                print(motor)
-                if motor == 1:
-                    motor_cmd = - (int(motor_cmd))
-                    print(motor_cmd)
-                set_direction(dxl, motor, motor_cmd)
+            set_all_motors(dxl, input_cmd)
 
 
 main()
