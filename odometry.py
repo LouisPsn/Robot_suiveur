@@ -23,7 +23,7 @@ def wheelSpeedConvertion(leftWheel, RightWheel):
     leftWheelRad = leftWheel * (math.pi/180)
     rightWheelRad = RightWheel * (math.pi/180)
     linearSpeed = (wheelDiameter * (leftWheelRad+rightWheelRad))/4
-    angularSpeed = (wheelDiameter * (leftWheelRad-rightWheelRad))/wheelDistance
+    angularSpeed = ((wheelDiameter * (leftWheelRad-rightWheelRad))/wheelDistance)/2
 
     return linearSpeed, angularSpeed
 
@@ -34,7 +34,7 @@ def speedToDelta(linearSpeed, angularSpeed, time):
         return (x,y,0)
     else:
         teta = angularSpeed*time
-        x = (linearSpeed*time)*math.cos(worldTeta + angularSpeed*time)
+        x = (linearSpeed*time)*(math.cos(worldTeta + angularSpeed*time))
         y = (linearSpeed*time)*(math.sin(worldTeta + angularSpeed*time))
         return(x,y,teta)
 
