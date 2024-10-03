@@ -94,6 +94,9 @@ def compute_motor_command_2(x, y, theta_util):
     v_rot = 180
     v_trans = 1080
     
+    print("x : ", x)
+    print("y : ", y)
+    
     if y != 0:
         theta = math.atan(x/y)
     else:
