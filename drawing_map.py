@@ -23,7 +23,6 @@ if not ports:
 
 # Initialize DxlIO with the first available port
 dxl_io = pypot.dynamixel.DxlIO(ports[0])
-dxl_io.disable_torque()
 
 
 # Assuming that wheel motors have IDs 1 and 2 (left and right wheels)
