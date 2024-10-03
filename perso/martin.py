@@ -95,7 +95,7 @@ def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot
     if (ecrat_en_y < 0):
             hard_virage = True
             
-    if (ecart_en_x < 35 and ecart_en_x > -35 ):
+    if (ecart_en_x < 45 and ecart_en_x > -45 ):
         # same motor speed
         return 360, 360
     elif ecart_en_x > 1 :
