@@ -27,7 +27,7 @@ def wheelSpeedConvertion(leftWheel, RightWheel):
 
     return linearSpeed, angularSpeed
 
-def speedToPosition(linearSpeed, angularSpeed, time):
+def speedToDelta(linearSpeed, angularSpeed, time):
     if angularSpeed == 0: # TODO ajouter une tolerance
         x = linearSpeed * time
         return (x,0,0)
@@ -50,7 +50,7 @@ for i in range(0,1000):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
-    dx,dy,dteta = speedToPosition(v,teta,1/frequency)
+    dx,dy,dteta = speedToDelta(v,teta,1/frequency)
     worldX += dx
     worldY += dy
     worldTeta += dteta
