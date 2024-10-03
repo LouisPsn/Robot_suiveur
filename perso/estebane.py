@@ -98,17 +98,6 @@ worldTeta += dteta
 print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
 '''
 
-def Print_position():
-    leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
-    leftSpeed = -leftSpeed
-    v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
-    dx,dy,dteta = speedToDelta(v,teta,1/frequency)
-    worldX += dx
-    worldY += dy
-    worldTeta += dteta
-    print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
-
-
 def get_coordinate():
     print("Path method :")
     method = int(input())
@@ -246,18 +235,32 @@ def compute_motor_command_2(x, y, theta_util):
     
     # dxl_io.set_moving_speed({2: 0}) # Degrees / s
     # dxl_io.set_moving_speed({1: 0}) # Degrees / s
+
+def Print_position(debut, final):
+    leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
+    leftSpeed = -leftSpeed
+    v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
+    dx,dy,dteta = speedToDelta(v,teta,1/(final - debut))
+    worldX += dx
+    worldY += dy
+    worldTeta += dteta
+    print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+
     
 
 def send_command_to_motors(vL, vR, wait_time, rotation):
     ########################################################
+    debut_time = time.time()
+
     dxl_io.set_moving_speed({2: vL}) # Degrees / s
     dxl_io.set_moving_speed({1: -vR}) # Degrees / s
-    # time.sleep(wait_time)
+    time.sleep(wait_time)
 
     debut_time = time.time()
-    while(time.time-debut_time<wait_time):
-        Print_position()
-        time.sleep(1/frequency)
+
+    Print_position()
+
+
 
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
