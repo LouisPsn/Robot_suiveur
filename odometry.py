@@ -28,14 +28,16 @@ def wheelSpeedConvertion(leftWheel, RightWheel):
     return linearSpeed, angularSpeed
 
 def speedToDelta(linearSpeed, angularSpeed, time):
-    if angularSpeed == 0: # TODO ajouter une tolerance
+    '''
+        if angularSpeed == 0: # TODO ajouter une tolerance
         x = linearSpeed * time
         return (x,0,0)
     else:
-        x = (linearSpeed/angularSpeed)*math.sin(angularSpeed*time)
-        y = (linearSpeed/angularSpeed)* (1-math.cos(angularSpeed*time))
-        teta = angularSpeed*time
-        return(x,y,teta)
+    '''
+    teta = angularSpeed*time
+    x = (linearSpeed/angularSpeed)*math.cos(angularSpeed*time)
+    y = (linearSpeed/angularSpeed)* (math.sin(angularSpeed*time))
+    return(x,y,teta)
 
 
 
