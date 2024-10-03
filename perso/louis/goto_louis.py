@@ -116,7 +116,7 @@ def compute_motor_command_2(x, y, theta_util):
     
     
     # Calcul de la rotation initial du robot
-    v_rot = 90
+    v_rot = 20
     rotation = theta*180/math.pi
     wait_rot = abs(rotation/v_rot)
     print("rotation : ", rotation)
@@ -127,7 +127,7 @@ def compute_motor_command_2(x, y, theta_util):
         sens = 1
     
     # Rotation du robot
-    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
+    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
     time.sleep(wait_rot)
     
