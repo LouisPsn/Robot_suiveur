@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pypot.dynamixel
 from pypot.dynamixel import DxlIO
+import cv2
 
 # Constants
 WHEEL_BASE = 0.14  # distance between left and right wheels in meters
