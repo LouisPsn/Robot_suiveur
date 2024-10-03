@@ -15,16 +15,16 @@ motors_id = [1, 2]
 import math
 
 def getActuAngle(dxl, wheel_radius, wheel_distance):
-    left_wheel_position = dxl.get_present_position([1])[0]
-    right_wheel_position = dxl.get_present_position([2])[0]
+    left_motorposition = dxl.get_present_position([1])[0]
+    right_motorposition = dxl.get_present_position([2])[0]
     
-    left_wheel_position_rad = math.radians(left_wheel_position)
-    right_wheel_position_rad = math.radians(right_wheel_position)
+    left_motorposition_rad = math.radians(left_motorposition)
+    right_motorposition_rad = math.radians(right_motorposition)
     
-    left_wheel_distance = left_wheel_position_rad * wheel_radius
-    right_wheel_distance = right_wheel_position_rad * wheel_radius
+    left_distance = left_motorposition_rad * wheel_radius
+    right_distance = right_motorposition_rad * wheel_radius
     
-    delta_distance = right_wheel_distance - left_wheel_distance
+    delta_distance = right_distance - left_distance
     
     theta_current = delta_distance / wheel_distance
 
