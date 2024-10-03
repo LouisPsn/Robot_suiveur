@@ -10,6 +10,8 @@ wheelDistance = 14.5 # in cm
 wheelDistanceSI = (wheelDistance/100)
 frequency = 2.5 # in Hz
 
+motorId = [1,2]
+
 # Initilisation des moteurs
 def init(motors:list):
     ports = pypot.dynamixel.get_available_ports()
@@ -28,7 +30,7 @@ worldX = 0
 worldY = 0
 worldTeta = 0
 
-motorId = [1,2]
+
 
 Position=[]
 
