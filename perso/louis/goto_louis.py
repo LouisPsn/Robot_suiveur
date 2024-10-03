@@ -96,7 +96,13 @@ def compute_motor_command_1(x, y, theta_util):
     
 def compute_motor_command_2(x, y, theta_util):
     wheel_perimeter = 162
-    theta = math.atan(x/y)
+    if y != 0:
+        theta = math.atan(x/y)
+    else:
+        if x > 0:
+            theta = math.pi/2
+        else:
+            theta = math.pi/2
     
     # Retournement initial du robot si la coordonnées en ordonnée est négative
     if (y < 0):
