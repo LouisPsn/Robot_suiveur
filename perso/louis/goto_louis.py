@@ -115,10 +115,22 @@ def compute_motor_command_2(x, y, theta_util):
     else:
         sens = 1
     
+    rotation = theta_util - theta
+    
+    if rotation > 180:
+        rotation -= 180
+    if rotation < -180:
+        rotation +=180
+        
+    if rotation < 0:
+        sens = -1
+    else:
+        sens = 1
+    
     # Rotation finale du robot
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    wait_rot = ((robot_width/2)*(theta_util - theta))/(wheel_perimeter*(v_rot/360))
+    wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
     time.sleep(wait_rot)
     
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
@@ -133,7 +145,11 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     time.sleep(wait_time)
     
     v_rot = 180
-    rotation = rotation
+    
+    if rotation > 180:
+        rotation -= 180
+    if rotation < -180:
+        rotation +=180
     
     if rotation < 0:
         sens = -1
