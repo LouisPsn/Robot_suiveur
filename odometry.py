@@ -1,4 +1,5 @@
 import pypot.dynamixel
+import matplotlib.pyplot as plt
 import math
 import time
 
@@ -28,15 +29,19 @@ def wheelSpeedConvertion(leftWheel, RightWheel):
     return linearSpeed, angularSpeed
 
 def speedToDelta(linearSpeed, angularSpeed, dt):
-    if angularSpeed == 0: # TODO ajouter une tolerance
+    '''
+        if angularSpeed == 0: # TODO ajouter une tolerance
         x = linearSpeed*dt*math.cos(worldTeta)
         y = linearSpeed*dt*math.sin(worldTeta)
         return (x,y,0)
     else:
-        teta = angularSpeed*dt
-        x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
-        y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
-        return(x,y,teta)
+
+    '''
+    teta = angularSpeed*dt
+    x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
+    y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
+    return(x,y,teta)
+
 
 motorId = [1,2]
 
@@ -45,7 +50,9 @@ worldX = 0
 worldY = 0
 worldTeta = 0
 
-for i in range(0,1000):
+Position=[]
+
+for i in range(0,100):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
@@ -53,5 +60,17 @@ for i in range(0,1000):
     worldX += dx
     worldY += dy
     worldTeta += dteta
+    Position.append( (worldX, worldY) )
     print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
     time.sleep(1/frequency)
+
+x, y = zip(*Position)
+
+plt.plot(x, y, marker='o', linestyle='-', color='b')
+
+plt.title('Parcours du robot')
+plt.xlabel('Axe X')
+plt.ylabel('Axe Y')
+plt.grid()
+
+plt.savefig('parcours.png')
