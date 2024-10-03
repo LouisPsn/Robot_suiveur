@@ -27,15 +27,15 @@ def wheelSpeedConvertion(leftWheel, RightWheel):
 
     return linearSpeed, angularSpeed
 
-def speedToDelta(linearSpeed, angularSpeed, time):
+def speedToDelta(linearSpeed, angularSpeed, dt):
     if angularSpeed == 0: # TODO ajouter une tolerance
-        x = linearSpeed*time*math.cos(worldTeta)
-        y = linearSpeed*time*math.sin(worldTeta)
+        x = linearSpeed*dt*math.cos(worldTeta)
+        y = linearSpeed*dt*math.sin(worldTeta)
         return (x,y,0)
     else:
-        teta = angularSpeed*time
-        x = (linearSpeed*time)*(math.cos(worldTeta + angularSpeed*time))
-        y = (linearSpeed*time)*(math.sin(worldTeta + angularSpeed*time))
+        teta = angularSpeed*dt
+        x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
+        y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
         return(x,y,teta)
 
 motorId = [1,2]
