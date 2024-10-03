@@ -102,19 +102,10 @@ def compute_motor_command_2(x, y, theta_util):
         else:
             theta = -math.pi/2
 
-    
-    # Retournement initial du robot si la coordonnées en ordonnée est négative
-    if (y < 0):
-        time_sleep = ((robot_width/2)*math.pi)/(wheel_perimeter*(v_rot/360))
-        dxl_io.set_wheel_mode([1])
-        dxl_io.set_moving_speed({2: -v_rot}) # Degrees / s
-        dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
-        time.sleep(time_sleep)
-        dxl_io.set_moving_speed({1: 0}) # Degrees / s
-        dxl_io.set_moving_speed({2: 0}) # Degrees / s
-        sens = -1
-    else:
-        sens = 1
+    if theta > 180:
+        theta -= 360
+    if theta < -180:
+        theta += 360
 
     if theta < 0:
         sens = -1
