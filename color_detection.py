@@ -17,8 +17,10 @@ def getHisto(color_h_min:int, color_h_max:int, frame):
   
     # preparing the mask to overlay 
     mask1 = cv2.inRange(h, np.array([color_h_min]), np.array([color_h_max]))
+    cv2.imshow("mask1", mask1)
     
     mask2 = cv2.inRange(s, np.array([20]), np.array([255]))
+    cv2.imshow("mask2", mask2)
     
     mask = cv2.bitwise_and(mask1, mask2)
     mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
@@ -29,9 +31,9 @@ def getHisto(color_h_min:int, color_h_max:int, frame):
 
 img = cv2.imread("./parcours.png")
 cv2.imshow("base",img)
-cv2.imshow("red",getHisto(0,20, img))
+#cv2.imshow("red",getHisto(0,20, img))
 cv2.imshow("green",getHisto(80,120, img))
-cv2.imshow("blue",getHisto(160,180, img))
+#cv2.imshow("blue",getHisto(160,180, img))
 
 while(True):
     if(cv2.waitKey()):
