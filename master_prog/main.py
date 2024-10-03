@@ -7,7 +7,7 @@ def main():
     cammera = opencv_utils.initVideoCapture(robot_constant.CAMMERA_PORT)
     lineFollowingSavedPos = False
     status:int = 0 # 0 -> ligne noir, 1 -> ligne rouge, 2 -> stop
-    odometryStatus = False
+    odometryStatus = True
     lastSwitch = 0
     lastOdoTickTime = time.time()
     odoTick = 0
