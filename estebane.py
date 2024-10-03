@@ -49,7 +49,7 @@ while True :
     delta_position_1 = perimetre_roue*(delta_angle_1/360)
     delta_position_2 = perimetre_roue*(delta_angle_2/360)
 
-    angle = np.degrees(np.arcsin( ( delta_position_1 - delta_position_2)/rayon_roue ))
+    angle += np.degrees(np.arcsin( ( delta_position_1 - delta_position_2)/rayon_roue ))
     #PositionX = (delta_1 + delta_2)*np.cos(angle)
     #PositionY = (delta_1 + delta_2)*np.sin(angle)
 
