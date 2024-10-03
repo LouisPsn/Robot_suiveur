@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pypot.dynamixel
 from pypot.dynamixel import DxlIO
+import cv2
 
 # Constants
 WHEEL_BASE = 0.14  # distance between left and right wheels in meters
@@ -60,7 +61,7 @@ except KeyboardInterrupt:
     # If interrupted by keyboard, we stop the loop
     pass
 
-# Plot the path using matplotlib
+#plot the path using matplotlib
 plt.figure()
 plt.plot(path_x, path_y, marker='o', color='r')
 plt.title("Robot Path")
@@ -68,7 +69,14 @@ plt.xlabel("X Position (m)")
 plt.ylabel("Y Position (m)")
 plt.grid(True)
 plt.axis('equal')  # To keep aspect ratio equal
-plt.show()
+
+# Save the figure as an image
+plt.savefig("robot_path.png")  # Save the plot as a PNG file
+
+# Remove plt.show() because it's not needed in a non-interactive environment
+
 
 # Cleanup
 dxl_io.close()
+
+
