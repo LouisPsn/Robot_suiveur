@@ -43,8 +43,8 @@ while True :
     print(current_position_2)
 
     #posera probleme par la suite
-    delta_angle_1 = current_position_1 - past_position_1
-    delta_angle_2 = current_position_2 - past_position_2
+    delta_angle_1 = current_position_1[0] - past_position_1[0]
+    delta_angle_2 = current_position_2[0] - past_position_2[0]
 
     delta_position_1 = perimetre_roue*(delta_angle_1/360)
     delta_position_2 = perimetre_roue*(delta_angle_2/360)
