@@ -133,7 +133,7 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     time.sleep(wait_time)
     
     v_rot = 180
-    rotation = rotation*180/math.pi
+    rotation = rotation
     
     if rotation < 0:
         sens = -1
