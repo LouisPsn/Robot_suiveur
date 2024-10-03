@@ -144,9 +144,9 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     v_rot = 180
     
     while rotation > math.pi:
-        rotation -= math.pi
+        rotation -= math.pi*2
     while rotation < -math.pi:
-        rotation += math.pi
+        rotation += math.pi*2
     
     if rotation < 0:
         sens = -1
