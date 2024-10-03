@@ -39,6 +39,6 @@ def main():
     print("[Status]: Good bye!")
 
     
-    
+main()    
 
 
