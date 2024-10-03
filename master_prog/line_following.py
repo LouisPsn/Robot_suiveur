@@ -3,7 +3,7 @@ from motor import command_motors
 import numpy as np
 from color_constant import *
 
-def blackLineFolow(cap:cv2.VideoCapture, dxl):
+def blackLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
 
     try:
@@ -30,11 +30,17 @@ def blackLineFolow(cap:cv2.VideoCapture, dxl):
         _, width, _ = frame.shape
         
         if center_x > width/2 + width/4:
-            command_motors(40, 300, dxl)
+            command_motors(20, 320, dxl)
+            save_direction = True
         elif center_x < width/4:
-            command_motors(300, 40, dxl)
+            command_motors(320, 20, dxl)
+            save_direction = True
         else:
-            command_motors(300, 300, dxl)
+            command_motors(320, 320, dxl)
+            save_direction = False
+    else:
+        if not save_direction:
+            command_motors(20, 320, dxl)
 
 def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
@@ -60,11 +66,19 @@ def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
         _, width, _ = frame.shape
 
         if center_x > width/2 + width/4:
-            command_motors(20, 220, dxl)
+            command_motors(20, 320, dxl)
+            save_direction = True
         elif center_x < width/4:
-            command_motors(220, 20, dxl)
+            command_motors(320, 20, dxl)
+            save_direction = True
         else:
-            command_motors(300, 300, dxl)
+            command_motors(320, 320, dxl)
+            save_direction = False
+    else:
+        if not save_direction:
+            command_motors(20, 320, dxl)
+
+
 
 def yellow_detected(cammera:cv2.VideoCapture):
     _, frame = cammera.read()

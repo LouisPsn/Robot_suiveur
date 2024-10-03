@@ -14,7 +14,7 @@ def main():
     while(True):
         match status:
             case 0:
-                line_following.blackLineFolow(cammera, dxl)
+                line_following.blackLineFolow(cammera, lineFollowingSavedPos, dxl)
             case 1:
                 line_following.redLineFolow(cammera, lineFollowingSavedPos, dxl)
             case 2:
