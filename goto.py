@@ -33,15 +33,18 @@ def init():
         exit('No port')
     print(ports)
 
-    dxl_io = pypot.dynamixel.DxlIO(ports[0], convert=True)
+    dxl_io = pypot.dynamixel.DxlIO(ports[0])
     dxl_io.enable_torque(motors_id)
     dxl_io.set_wheel_mode([1])
     return dxl_io
 
 def main():
     dxl = init()
-    current_position = dxl.get_present_position([1])
+    current_position = dxl.get_present_position([1, 2])
     print(f"Position actuelle du moteur 1 (en degrés): {current_position[0]}")
+    print(f"Position actuelle du moteur 2 (en degrés): {current_position[1]}")
+
+
     # while True:
     #     input_cmd = input("Entrer position (x, y, teta): ")
     #     print("Commande reçu : ", input_cmd)
