@@ -60,7 +60,7 @@ def speedToDelta(linearSpeed, angularSpeed, dt):
     return(x,y,teta)
 
 # Récupération des données et stockage dans Position
-for i in range(0,100):
+for i in range(0,25):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
@@ -74,6 +74,8 @@ for i in range(0,100):
 
 # Création et sauvegarde du parcours
 x, y = zip(*Position)
+
+print(lenght(Position))
 
 plt.plot(x, y, marker='o', linestyle='-', color='b')
 

@@ -163,9 +163,6 @@ def compute_motor_command_2(x, y, theta_util):
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
-    
-
-
 def send_command_to_motors(vL, vR, wait_time, rotation):
     dxl_io.set_moving_speed({2: vL}) # Degrees / s
     dxl_io.set_moving_speed({1: -vR}) # Degrees / s
@@ -189,8 +186,6 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     
-
-
 def main():
     while(1):
         x, y, theta, method = get_coordinate()
