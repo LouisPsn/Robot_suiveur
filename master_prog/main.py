@@ -18,7 +18,7 @@ def main():
             case 1:
                 line_following.redLineFolow(cammera, lineFollowingSavedPos, dxl)
             case 2:
-                motor.stop_motor()
+                motor.stop_motor(dxl)
                 break
         
         #Odometry section
