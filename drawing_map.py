@@ -19,7 +19,7 @@ image = np.ones((IMG_SIZE[1], IMG_SIZE[0], 3), dtype=np.uint8) * 255
 with DxlIO('/dev/ttyUSB0', baudrate=1000000) as dxl_io:
     # Assuming that wheel motors have IDs 1 and 2 (left and right wheels)
     motor_ids = [1, 2]
-    
+    dxl_io.disable_torque()
     # Continuously get motor speeds and update the robot's positiona
     while True:
         # Get angular velocity from motors (in rad/s)
@@ -55,3 +55,4 @@ with DxlIO('/dev/ttyUSB0', baudrate=1000000) as dxl_io:
 
 # Cleanup
 cv2.destroyAllWindows()
+
