@@ -143,9 +143,9 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     
     v_rot = 180
     
-    if rotation > 180:
+    while rotation > 180:
         rotation -= 180
-    if rotation < -180:
+    while rotation < -180:
         rotation += 180
     
     if rotation < 0:
