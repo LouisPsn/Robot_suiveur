@@ -70,7 +70,7 @@ def compute_motor_command(x, y):
 
 
 def send_command_to_motors(vL, vR, wait_time, rotation):
-    dxl_io.set_moving_speed({1: -vL}, {2: vR}) # Degrees / s
+    dxl_io.set_moving_speed({1: -vL}) # Degrees / s
     dxl_io.set_moving_speed({2: vR}) # Degrees / s
     print(wait_time)
     time.sleep(wait_time)
