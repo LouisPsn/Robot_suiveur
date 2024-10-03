@@ -82,6 +82,9 @@ def compute_motor_command_1(x, y, theta_util):
         wait_time = (DR/wheel_perimeter)/(vR/360)
     
     # Calcul de la rotation final en fonction de la position du robot après translation et en fonction de la rotation utilisateur
+    
+    print("theta utils : ", theta_util)
+    print("theta : ", theta)
     rotation = theta_util*(math.pi/180) - theta
     print("rotation finale : ", rotation)
     
