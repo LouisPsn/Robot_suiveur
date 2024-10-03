@@ -73,7 +73,7 @@ while True:
             command_motors(saved_direction[0], saved_direction[1])
 
     # Afficher l'image originale avec les contours
-    cv2.imshow('Image originale avec contours', frame)
+    #cv2.imshow('Image originale avec contours', frame)
 
     # Appuyer sur 'q' pour quitter
     if cv2.waitKey(1) & 0xFF == ord('q'):
