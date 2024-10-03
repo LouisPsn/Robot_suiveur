@@ -38,8 +38,6 @@ def speedToDelta(linearSpeed, angularSpeed, time):
         y = (linearSpeed*time)*(math.sin(worldTeta + angularSpeed*time))
         return(x,y,teta)
 
-
-
 motorId = [1,2]
 
 dxl = init(motorId)
