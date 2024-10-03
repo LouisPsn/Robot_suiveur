@@ -35,14 +35,10 @@ def compute_motor_command_1(x, y, theta_util):
     
     # Retourne le robot si la coordonnée en ordonnée est négative
     if (y < 0):
-        print("distance : ", (robot_width/2)*math.pi)
-        print("wheel_perimeter : ", wheel_perimeter)
-        print("vitesse : ", v_rot*(math.pi/180))
         time_sleep = ((robot_width/2)*math.pi)/(wheel_perimeter*(v_rot/360))
         dxl_io.set_wheel_mode([1])
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
-        print("time_sleep : ", time_sleep)
         time.sleep(time_sleep)
         
         y = -y
@@ -75,7 +71,6 @@ def compute_motor_command_1(x, y, theta_util):
         wait_time = (DL/wheel_perimeter)/(vL/360)
     # Cas de rotation vers la droite
     else:
-        print("ici")
         rL = -r - robot_width/2
         rR = -r + robot_width/2
         
@@ -88,15 +83,7 @@ def compute_motor_command_1(x, y, theta_util):
     
     # Calcul de la rotation final en fonction de la position du robot après translation et en fonction de la rotation utilisateur
     rotation = theta_util*(math.pi/180) - theta
-    
-    print("theta_i : ", theta_i*180/math.pi)
-    print("theta : ", theta*180/math.pi)
-    print("rotation : ", rotation*180/math.pi)
-    print("r : ", r)
-    print("DL : ", DL)
-    print("DR : ", DR)
-    print("vL : ", vL)
-    print("vR : ", vR)
+    print("rotation finale : ", rotation)
     
     return vL, vR, wait_time, rotation
     
