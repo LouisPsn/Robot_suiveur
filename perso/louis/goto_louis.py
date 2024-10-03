@@ -53,7 +53,7 @@ def compute_motor_command(x, y, theta_util):
         
         vL = 720
         vR = 720*(DR/DL)
-        wait_time = DL/wheel_perimeter
+        wait_time = (DL/wheel_perimeter)/(vL/360)
     else:
         print("ici")
         rL = -r - robot_width/2
@@ -64,7 +64,7 @@ def compute_motor_command(x, y, theta_util):
         
         vR = 720
         vL = 720*(DL/DR)
-        wait_time = DR/wheel_perimeter
+        wait_time = (DR/wheel_perimeter)/(vR/360)
     
     rotation = theta_util*(math.pi/180) - theta
     
@@ -91,7 +91,7 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     time.sleep(wait_time)
     
     wait_rot = abs(rotation/math.pi)
-    dxl_io.set_moving_speed({2: -360}) # Degrees / s
+    dxl_io.set_moving_speed({2: -360}) # Degrees / s180
     dxl_io.set_moving_speed({1: -360}) # Degrees / s
     time.sleep(wait_rot)
     
