@@ -31,18 +31,10 @@ def blackLineFolow(cap:cv2.VideoCapture, dxl):
         
         if center_x > width/2 + width/4:
             command_motors(40, 300, dxl)
-            saved_direction = [40, 300]
         elif center_x < width/4:
             command_motors(300, 40, dxl)
-            saved_direction = [300, 40]
         else:
             command_motors(300, 300, dxl)
-            saved_direction = [300, 300]
-    else:
-        if saved_direction[0] == saved_direction[1]:
-            command_motors(0, 0, dxl)
-        else:
-            command_motors(saved_direction[0], saved_direction[1])
 
 def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
@@ -69,16 +61,10 @@ def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
 
         if center_x > width/2 + width/4:
             command_motors(20, 220, dxl)
-            save_direction = True
         elif center_x < width/4:
             command_motors(220, 20, dxl)
-            save_direction = True
         else:
             command_motors(300, 300, dxl)
-            save_direction = False
-    else:
-        if not save_direction:
-            command_motors(0, 0, dxl)
 
 def yellow_detected(cammera:cv2.VideoCapture):
     _, frame = cammera.read()
