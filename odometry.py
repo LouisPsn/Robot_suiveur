@@ -62,7 +62,7 @@ for i in range(0,100):
 
 x, y = zip(*Position)
 
-plt.figure(figsize=(2000, 2000))
+#plt.figure(figsize=(200, 200))
 plt.plot(x, y, marker='o', linestyle='-', color='b')
 
 plt.title('Parcours des Coordonnées')
