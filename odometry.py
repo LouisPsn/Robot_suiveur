@@ -29,15 +29,19 @@ def wheelSpeedConvertion(leftWheel, RightWheel):
     return linearSpeed, angularSpeed
 
 def speedToDelta(linearSpeed, angularSpeed, dt):
-    if angularSpeed == 0: # TODO ajouter une tolerance
+    '''
+        if angularSpeed == 0: # TODO ajouter une tolerance
         x = linearSpeed*dt*math.cos(worldTeta)
         y = linearSpeed*dt*math.sin(worldTeta)
         return (x,y,0)
     else:
-        teta = angularSpeed*dt
-        x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
-        y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
-        return(x,y,teta)
+
+    '''
+    teta = angularSpeed*dt
+    x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
+    y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
+    return(x,y,teta)
+
 
 motorId = [1,2]
 
@@ -48,7 +52,7 @@ worldTeta = 0
 
 Position=[]
 
-for i in range(0,50):
+for i in range(0,100):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
@@ -62,10 +66,9 @@ for i in range(0,50):
 
 x, y = zip(*Position)
 
-#plt.figure(figsize=(200, 200))
 plt.plot(x, y, marker='o', linestyle='-', color='b')
 
-plt.title('Parcours des Coordonnées')
+plt.title('Parcours du robot')
 plt.xlabel('Axe X')
 plt.ylabel('Axe Y')
 plt.grid()
