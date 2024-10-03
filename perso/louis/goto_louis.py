@@ -122,7 +122,8 @@ def compute_motor_command_2(x, y, theta_util):
     dxl_io.set_moving_speed({2: -v_rot}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
     time.sleep(wait_trans)
-    
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     
     
@@ -145,7 +146,6 @@ def compute_motor_command_2(x, y, theta_util):
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
     time.sleep(wait_rot)
-    
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
@@ -156,6 +156,8 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     dxl_io.set_moving_speed({2: vL}) # Degrees / s
     dxl_io.set_moving_speed({1: -vR}) # Degrees / s
     time.sleep(wait_time)
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     v_rot = 180
     
