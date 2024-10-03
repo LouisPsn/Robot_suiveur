@@ -6,10 +6,10 @@ import time
 
 
 # Set up motors
-ports = pypot.dynamixel.get_available_ports()
-if not ports:
-    exit('No port')
-dxl_io = pypot.dynamixel.DxlIO(ports[0])
+# ports = pypot.dynamixel.get_available_ports()
+# if not ports:
+#     exit('No port')
+# dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
 
 def get_coordinate():
@@ -28,9 +28,9 @@ def compute_motor_command(x, y):
     robot_width = 145
     
     if (y < 0):
-        dxl_io.set_wheel_mode([1])
-        dxl_io.set_moving_speed({2: 180}) # Degrees / s
-        dxl_io.set_moving_speed({1: 180}) # Degrees / s
+        # dxl_io.set_wheel_mode([1])
+        # dxl_io.set_moving_speed({2: 180}) # Degrees / s
+        # dxl_io.set_moving_speed({1: 180}) # Degrees / s
         time.sleep(1)
         y = -y
         x = -x        
@@ -42,8 +42,8 @@ def compute_motor_command(x, y):
     r = (distance/2)/math.sin(theta/2)
     
     if x > 0:
-        rL = r + robot_width
-        rR = r - robot_width
+        rL = r + robot_width/2
+        rR = r - robot_width/2
         
         DL = rL * theta
         DR = rR * theta
@@ -52,8 +52,8 @@ def compute_motor_command(x, y):
         vR = 360*(DR/DL)
         wait_time = DL/161.5
     else:
-        rL = r - robot_width
-        rR = r + robot_width
+        rL = r - robot_width/2
+        rR = r + robot_width/2
         
         DL = rL * theta
         DR = rR * theta
@@ -64,6 +64,8 @@ def compute_motor_command(x, y):
     
     print("theta : ", theta)
     print("r : ", r)
+    print("DL : ", DL)
+    print("DR : ", DR)
     print("vL : ", vL)
     print("vR : ", vR)
     
@@ -75,12 +77,12 @@ def compute_motor_command(x, y):
 
 
 def send_command_to_motors(vL, vR, wait_time, rotation):
-    dxl_io.set_moving_speed({2: vL}) # Degrees / s
-    dxl_io.set_moving_speed({1: -vR}) # Degrees / s
+    # dxl_io.set_moving_speed({2: vL}) # Degrees / s
+    # dxl_io.set_moving_speed({1: -vR}) # Degrees / s
     print(wait_time)
-    time.sleep(wait_time)
-    dxl_io.set_moving_speed({2: 0}) # Degrees / s
-    dxl_io.set_moving_speed({1: 0}) # Degrees / s
+    # time.sleep(wait_time)
+    # dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    # dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
 
 
