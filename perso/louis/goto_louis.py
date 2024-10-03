@@ -90,9 +90,9 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     print(wait_time)
     time.sleep(wait_time)
     
-    wait_rot = rotation/180
+    wait_rot = rotation/math.pi
     dxl_io.set_moving_speed({2: 180}) # Degrees / s
-    dxl_io.set_moving_speed({1: -180}) # Degrees / s
+    dxl_io.set_moving_speed({1: 180}) # Degrees / s
     time.sleep(wait_rot)
     
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
