@@ -6,10 +6,10 @@ import time
 
 
 # Set up motors
-# ports = pypot.dynamixel.get_available_ports()
-# if not ports:
-#     exit('No port')
-# dxl_io = pypot.dynamixel.DxlIO(ports[0])
+ports = pypot.dynamixel.get_available_ports()
+if not ports:
+    exit('No port')
+dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
 
 def get_coordinate():
@@ -17,24 +17,21 @@ def get_coordinate():
     x = input()
     print("Enter y :")
     y = input()
-    print("Enter theta :")
-    theta = input()
     x = int(x)
     y = int(y)
-    theta = int(theta)
 
-    return x, y, theta
+    return x, y
 
 
-def compute_motor_command(x, y, theta_util):
+def compute_motor_command(x, y):
     wheel_perimeter = 162
     robot_width = 145
     
     if (y < 0):
-        # dxl_io.set_wheel_mode([1])
-        # dxl_io.set_moving_speed({2: 60}) # Degrees / s
-        # dxl_io.set_moving_speed({1: 60}) # Degrees / s
-        # time.sleep(3)
+        dxl_io.set_wheel_mode([1])
+        dxl_io.set_moving_speed({2: 60}) # Degrees / s
+        dxl_io.set_moving_speed({1: 60}) # Degrees / s
+        time.sleep(3)
         y = -y
         x = -x        
     
@@ -66,18 +63,15 @@ def compute_motor_command(x, y, theta_util):
         vL = 360*(DL/DR)
         wait_time = DR/wheel_perimeter
     
-    rotation = theta_util*(math.pi/180) - theta
-    
     print("theta_i : ", theta_i*180/math.pi)
     print("theta : ", theta*180/math.pi)
-    print("rotation : ", rotation*180/math.pi)
     print("r : ", r)
     print("DL : ", DL)
     print("DR : ", DR)
     print("vL : ", vL)
     print("vR : ", vR)
     
-    return vL, vR, wait_time, rotation
+    return vL, vR, wait_time, theta
     
     
     
@@ -85,26 +79,18 @@ def compute_motor_command(x, y, theta_util):
 
 
 def send_command_to_motors(vL, vR, wait_time, rotation):
-    # dxl_io.set_moving_speed({2: vL}) # Degrees / s
-    # dxl_io.set_moving_speed({1: -vR}) # Degrees / s
+    dxl_io.set_moving_speed({2: vL}) # Degrees / s
+    dxl_io.set_moving_speed({1: -vR}) # Degrees / s
     print(wait_time)
-    # time.sleep(wait_time)
-    
-    wait_rot = rotation/180
-    # dxl_io.set_moving_speed({2: 180}) # Degrees / s
-    # dxl_io.set_moving_speed({1: -180}) # Degrees / s
-    # time.sleep(wait_rot)
-    
-    # dxl_io.set_moving_speed({2: 0}) # Degrees / s
-    # dxl_io.set_moving_speed({1: 0}) # Degrees / s
-    
-    
+    time.sleep(wait_time)
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s    
 
 
 def main():
     while(1):
-        x, y, theta = get_coordinate()
-        vL, vR, wait_time, rotation = compute_motor_command(x, y, theta)
+        x, y = get_coordinate()
+        vL, vR, wait_time, rotation = compute_motor_command(x, y)
         send_command_to_motors(vL, vR, wait_time, rotation)
 
 
