@@ -29,9 +29,9 @@ def compute_motor_command(x, y):
     
     if (y < 0):
         dxl_io.set_wheel_mode([1])
-        dxl_io.set_moving_speed({2: 180}) # Degrees / s
-        dxl_io.set_moving_speed({1: 180}) # Degrees / s
-        time.sleep(1)
+        dxl_io.set_moving_speed({2: 60}) # Degrees / s
+        dxl_io.set_moving_speed({1: 60}) # Degrees / s
+        time.sleep(3)
         y = -y
         x = -x        
     
