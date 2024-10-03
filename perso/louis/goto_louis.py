@@ -180,15 +180,12 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     else:
         sens = 1
     
-    print("rotation : ", rotation)
     
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
     wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
-    
-    print("wait_rot : ", wait_rot)
     time.sleep(wait_rot)
-    
+
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
