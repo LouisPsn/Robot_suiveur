@@ -100,6 +100,7 @@ def compute_motor_command_2(x, y, theta_util):
             theta = math.pi/2
         else:
             theta = -math.pi/2
+
     
     # Retournement initial du robot si la coordonnées en ordonnée est négative
     if (y < 0):
@@ -113,14 +114,28 @@ def compute_motor_command_2(x, y, theta_util):
         sens = -1
     else:
         sens = 1
+
+    if theta < 0:
+        sens = -1
+    else:
+        sens = 1
+        
+    # Rotation Initial du robot
+    wait_rot = ((robot_width/2)*theta)/(wheel_perimeter*(v_rot/360))
+    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
+    dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+    time.sleep(wait_rot)
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s    
+    
     
     # Calcul de la distance à parcourir
     distance = math.sqrt(x**2 + y**2)
     
     # Transalation du robot
     wait_trans = distance/(wheel_perimeter*(v_rot/360))
-    dxl_io.set_moving_speed({2: -v_rot}) # Degrees / s
-    dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
+    dxl_io.set_moving_speed({2: 720}) # Degrees / s
+    dxl_io.set_moving_speed({1: -720}) # Degrees / s
     time.sleep(wait_trans)
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
