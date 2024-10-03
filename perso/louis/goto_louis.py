@@ -50,7 +50,7 @@ def compute_motor_command_1(x, y, theta_util):
         if x > 0:
             theta_i = math.pi/2
         else:
-            -theta_i = math.pi/2
+            theta_i = math.pi/2
     distance = math.sqrt(x**2 + y**2)
     theta = math.pi - 2*(math.pi/2 - theta_i)
     r = (distance/2)/math.sin(theta/2)
