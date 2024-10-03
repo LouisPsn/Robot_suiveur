@@ -24,6 +24,8 @@ diametre_roue = 5.2
 rayon_roue = diametre_roue/2
 perimetre_roue = rayon_roue*2*3.1415
 
+angle=0
+
 
 
 # qzlrilibz
