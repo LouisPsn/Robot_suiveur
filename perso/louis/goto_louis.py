@@ -6,10 +6,10 @@ import time
 
 
 # Initialisation des moteurs
-# ports = pypot.dynamixel.get_available_ports()
-# if not ports:
-#     exit('No port')
-# dxl_io = pypot.dynamixel.DxlIO(ports[0])
+ports = pypot.dynamixel.get_available_ports()
+if not ports:
+    exit('No port')
+dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
 
 # Récupère les consignes utilisateurs
@@ -34,9 +34,9 @@ def compute_motor_command_1(x, y, theta_util):
     
     # Retourne le robot si la coordonnée en ordonnée est négative
     if (y < 0):
-        # dxl_io.set_wheel_mode([1])
-        # dxl_io.set_moving_speed({2: 180}) # Degrees / s
-        # dxl_io.set_moving_speed({1: 180}) # Degrees / s
+        dxl_io.set_wheel_mode([1])
+        dxl_io.set_moving_speed({2: 180}) # Degrees / s
+        dxl_io.set_moving_speed({1: 180}) # Degrees / s
         time.sleep(1)
         y = -y
         x = -x
@@ -106,9 +106,9 @@ def compute_motor_command_2(x, y, theta_util):
     
     # Retournement initial du robot si la coordonnées en ordonnée est négative
     if (y < 0):
-            # dxl_io.set_wheel_mode([1])
-            # dxl_io.set_moving_speed({2: 180}) # Degrees / s
-            # dxl_io.set_moving_speed({1: 180}) # Degrees / s
+            dxl_io.set_wheel_mode([1])
+            dxl_io.set_moving_speed({2: 180}) # Degrees / s
+            dxl_io.set_moving_speed({1: 180}) # Degrees / s
             time.sleep(1)
             y = -y
             x = -x
@@ -127,9 +127,9 @@ def compute_motor_command_2(x, y, theta_util):
         sens = 1
     
     # Rotation du robot
-    # dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
-    # dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    # time.sleep(wait_rot)
+    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
+    dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+    time.sleep(wait_rot)
     
     # Calcul de la translation du robot
     distance = math.sqrt(x**2 + y**2)
@@ -139,9 +139,9 @@ def compute_motor_command_2(x, y, theta_util):
     print("distance : ", distance)
     
     # Translation du robot
-    # dxl_io.set_moving_speed({2: v_moteur}) # Degrees / s
-    # dxl_io.set_moving_speed({1: -v_moteur}) # Degrees / s
-    # time.sleep(wait_time)
+    dxl_io.set_moving_speed({2: v_moteur}) # Degrees / s
+    dxl_io.set_moving_speed({1: -v_moteur}) # Degrees / s
+    time.sleep(wait_time)
     
     # Calcul de la rotation du robot
     rotation = theta_util*(math.pi/180) - theta
@@ -156,20 +156,20 @@ def compute_motor_command_2(x, y, theta_util):
         sens = 1
     
     # Rotation finale du robot
-    # dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
-    # dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    # time.sleep(wait_rot)
+    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
+    dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+    time.sleep(wait_rot)
     
-    # dxl_io.set_moving_speed({2: 0}) # Degrees / s
-    # dxl_io.set_moving_speed({1: 0}) # Degrees / s
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     
 
 
 def send_command_to_motors(vL, vR, wait_time, rotation):
-    # dxl_io.set_moving_speed({2: vL}) # Degrees / s
-    # dxl_io.set_moving_speed({1: -vR}) # Degrees / s
-    # time.sleep(wait_time)
+    dxl_io.set_moving_speed({2: vL}) # Degrees / s
+    dxl_io.set_moving_speed({1: -vR}) # Degrees / s
+    time.sleep(wait_time)
     
     v_rot = 180
     rotation = rotation*180/math.pi
@@ -181,12 +181,12 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     else:
         sens = 1
     
-    # dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
-    # dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    # time.sleep(wait_rot)
+    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
+    dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+    time.sleep(wait_rot)
     
-    # dxl_io.set_moving_speed({2: 0}) # Degrees / s
-    # dxl_io.set_moving_speed({1: 0}) # Degrees / s
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     
 
