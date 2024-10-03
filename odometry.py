@@ -34,8 +34,8 @@ def speedToDelta(linearSpeed, angularSpeed, time):
         return (x,y,0)
     else:
         teta = angularSpeed*time
-        x = (linearSpeed/angularSpeed)*math.cos(angularSpeed*time)
-        y = (linearSpeed/angularSpeed)*(math.sin(angularSpeed*time))
+        x = (linearSpeed*time)*math.cos(worldTeta + angularSpeed*time)
+        y = (linearSpeed*time)*(math.sin(worldTeta + angularSpeed*time))
         return(x,y,teta)
 
 
