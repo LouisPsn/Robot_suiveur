@@ -1,4 +1,5 @@
 import pypot.dynamixel
+import matplotlib.pyplot as plt
 import math
 import time
 
@@ -45,7 +46,9 @@ worldX = 0
 worldY = 0
 worldTeta = 0
 
-for i in range(0,1000):
+Position=[]
+
+for i in range(0,100):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
@@ -53,5 +56,18 @@ for i in range(0,1000):
     worldX += dx
     worldY += dy
     worldTeta += dteta
+    Position.append( (worldX, worldY) )
     print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
     time.sleep(1/frequency)
+
+x, y = zip(*Position)
+
+plt.figure(figsize=(2000, 2000))
+plt.plot(x, y, marker='o', linestyle='-', color='b')
+
+plt.title('Parcours des Coordonnées')
+plt.xlabel('Axe X')
+plt.ylabel('Axe Y')
+plt.grid()
+
+plt.savefig('parcours.png')
