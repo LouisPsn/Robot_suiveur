@@ -1,5 +1,7 @@
 import pypot.dynamixel
 import time
+import numpy as np
+
 
 
 # Set up motors
@@ -8,6 +10,19 @@ if not ports:
     exit('No port')
 dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
+current_position_1=0
+current_position_2=0
+
+past_position_1=0
+past_position_2=0
+
+# distance en centimetre
+empatement = 14.5
+perimetre_empatement = (empatement/2)*2*3.1415
+
+diametre_roue = 5.2
+rayon = diametre_roue/2
+perimetre_roue = rayon*2*3.1415
 
 
 
@@ -17,7 +32,26 @@ dxl_io.set_wheel_mode([2])
 #dxl_io.set_moving_speed({2: 360}) # Degrees / s
 
 while True :
-    print(dxl_io.get_present_position((1, )))
-    print(dxl_io.get_present_position((2, )))
+    past_position_1 = current_position_1
+    past_position_2 = current_position_2
+
+    current_position_1=dxl_io.get_present_position((1, ))
+    current_position_2 =dxl_io.get_present_position((2, ))
+
+    print(current_position_1)
+    print(current_position_2)
+
+    #posera probleme par la suite
+    delta_1 = current_position_1 - past_position_1
+    delta_2 = current_position_2 - past_position_2
+
+    angle = (delta_1 - delta_2)*1
+    PositionX = (delta_1 + delta_2)*np.cos(angle)
+    PositionY = (delta_1 + delta_2)*np.sin(angle)
+
+    print(angle)
+    print(PositionX)
+    print(PositionY)
+
     time.sleep(1)
 
