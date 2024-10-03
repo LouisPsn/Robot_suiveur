@@ -84,13 +84,6 @@ def analyse_image():
 def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot_y):
     # All distance are integers in milimeters
     # All angle are in °
-    x = 100
-    robot_width = 145
-    robot_height = 100
-    wheel_perimeter = 162
-    
-    vL = 0
-    vR = 0
     
     hard_virage = False
     ecart_en_x = center_robot_x - center_detect_x
@@ -101,8 +94,7 @@ def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot
             
     if (ecart_en_x < 20 and ecart_en_x > -20 ):
         # same motor speed
-        vL = 360
-        vR = 360
+        return 360, 360
     elif ecart_en_x > 1 :
 
         if (ecart_en_x > 0.5 * center_robot_x): #Petit virage à gauche car l'ecart entre le centre du rectangle et du robot est faible 
