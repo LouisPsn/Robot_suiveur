@@ -6,7 +6,7 @@ wheelDiameter = 5.2 # in cm
 wheelDiameterSI = (wheelDiameter / 100)/2 # in m
 wheelDistance = 14.5 # in cm
 wheelDistanceSI = (wheelDistance/100)
-frequency = 50 # in Hz
+frequency = 2.5 # in Hz
 
 def init(motors:list):
     ports = pypot.dynamixel.get_available_ports()
