@@ -34,10 +34,17 @@ def analyse_image():
     except:
         pass
 
-    lower_blue = np.array([60, 140, 160]) 
-    upper_blue = np.array([180, 255, 255])  
+    #lower_blue = np.array([60, 140, 160]) 
+    #upper_blue = np.array([180, 255, 255])  
+    lower_red1 = np.array([0, 120, 70])
+    upper_red1 = np.array([10, 255, 255])
+    lower_red2 = np.array([170, 120, 70])
+    upper_red2 = np.array([180, 255, 255])
 
-    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    mask = mask1 | mask2
+
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
