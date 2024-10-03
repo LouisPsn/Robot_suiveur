@@ -24,7 +24,7 @@ def odometryTick(Position, worldX, worldY, worldTeta, deltaT, dxl):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
-    dx,dy,dteta = speedToDelta(v,teta,deltaT)
+    dx,dy,dteta = speedToDelta(v,teta,deltaT, worldTeta)
     
     worldX += dx
     worldY += dy
