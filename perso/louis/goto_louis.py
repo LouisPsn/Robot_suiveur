@@ -50,7 +50,7 @@ def compute_motor_command_1(x, y, theta_util):
         if x > 0:
             theta_i = math.pi/2
         else:
-            theta_i = math.pi/2
+            theta_i = -math.pi/2
     distance = math.sqrt(x**2 + y**2)
     theta = math.pi - 2*(math.pi/2 - theta_i)
     r = (distance/2)/math.sin(theta/2)
@@ -102,21 +102,21 @@ def compute_motor_command_2(x, y, theta_util):
         if x > 0:
             theta = math.pi/2
         else:
-            theta = math.pi/2
+            theta = -math.pi/2
     
     # Retournement initial du robot si la coordonnées en ordonnée est négative
     if (y < 0):
-            dxl_io.set_wheel_mode([1])
-            dxl_io.set_moving_speed({2: 180}) # Degrees / s
-            dxl_io.set_moving_speed({1: 180}) # Degrees / s
-            time.sleep(1)
-            y = -y
-            x = -x
-            theta_util -= 180    
+        dxl_io.set_wheel_mode([1])
+        dxl_io.set_moving_speed({2: 180}) # Degrees / s
+        dxl_io.set_moving_speed({1: 180}) # Degrees / s
+        time.sleep(1)
+        y = -y
+        x = -x
+        theta_util -= 180    
     
     
     # Calcul de la rotation initial du robot
-    v_rot = 180
+    v_rot = 90
     rotation = theta*180/math.pi
     wait_rot = abs(rotation/v_rot)
     print("rotation : ", rotation)
