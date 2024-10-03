@@ -12,6 +12,9 @@ if not ports:
    exit('No port')
 dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
+def setup_motors():
+    dxl_io.set_wheel_mode([1, 2])
+
 def print_image(frame ):
     cv2.imshow('Image avec rectangle englobant', frame)
     cv2.waitKey(0)
@@ -119,22 +122,25 @@ def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot
                 return 90, 360
 
 def command_motors(vL, vR):
-    dxl_io.set_wheel_mode([1])
-    dxl_io.set_moving_speed({1: -vL}) # Degrees / s
-    dxl_io.set_moving_speed({2: vR}) # Degrees / s
+    dxl_io.set_moving_speed({1: -vL, 2: vR})
 
 
 def main():
-    while(1):
-        center_detect_x, center_detect_y, center_robot_x, center_robot_y = analyse_image()
-        vL, vR  = compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot_y)
-        command_motors(vL, vR)
+    setup_motors()
+    try:
+        while(1):
+            center_detect_x, center_detect_y, center_robot_x, center_robot_y = analyse_image()
+            vL, vR  = compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot_y)
+            command_motors(vL, vR)
+            
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                cap.release()
+                cv2.destroyAllWindows()
+                break
+    except KeyboardInterrupt:
+        print("Program interrupted by user.")
+    finally: 
+        cap.release()
+        command_motors(0, 0)
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            cap.release()
-            cv2.destroyAllWindows()
-            break
-        
-        
-
 main()
