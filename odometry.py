@@ -75,7 +75,7 @@ for i in range(0,25):
 # Création et sauvegarde du parcours
 x, y = zip(*Position)
 
-print(lenght(Position))
+print(len(Position))
 
 plt.plot(x, y, marker='o', linestyle='-', color='b')
 
