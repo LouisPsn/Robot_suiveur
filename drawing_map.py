@@ -69,7 +69,14 @@ plt.xlabel("X Position (m)")
 plt.ylabel("Y Position (m)")
 plt.grid(True)
 plt.axis('equal')  # To keep aspect ratio equal
+
+# Save the figure as an image
+plt.savefig("robot_path.png")  # Save the plot as a PNG file
+
+# Display the plot
 plt.show()
 
 # Cleanup
 dxl_io.close()
+
+
