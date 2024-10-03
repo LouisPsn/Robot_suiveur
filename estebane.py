@@ -35,6 +35,7 @@ while True :
     past_position_1 = current_position_1
     past_position_2 = current_position_2
 
+    # en degree
     current_position_1=dxl_io.get_present_position((1, ))
     current_position_2 =dxl_io.get_present_position((2, ))
 
@@ -48,13 +49,13 @@ while True :
     delta_position_1 = perimetre_roue*(delta_angle_1/360)
     delta_position_2 = perimetre_roue*(delta_angle_2/360)
 
-    angle = (delta_position_1 - delta_position_2)*
-    PositionX = (delta_1 + delta_2)*np.cos(angle)
-    PositionY = (delta_1 + delta_2)*np.sin(angle)
+    angle = np.degrees(np.arcsin( ( delta_position_1 - delta_position_2)/rayon_roue ))
+    #PositionX = (delta_1 + delta_2)*np.cos(angle)
+    #PositionY = (delta_1 + delta_2)*np.sin(angle)
 
     print(angle)
-    print(PositionX)
-    print(PositionY)
+    #print(PositionX)
+    #print(PositionY)
 
     time.sleep(1)
 
