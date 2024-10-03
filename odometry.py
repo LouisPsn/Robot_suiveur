@@ -48,7 +48,7 @@ worldTeta = 0
 
 Position=[]
 
-for i in range(0,100):
+for i in range(0,50):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
     v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
