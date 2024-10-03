@@ -249,15 +249,20 @@ def compute_motor_command_2(x, y, theta_util):
     
 
 def send_command_to_motors(vL, vR, wait_time, rotation):
-    # dxl_io.set_moving_speed({2: vL}) # Degrees / s
-    # dxl_io.set_moving_speed({1: -vR}) # Degrees / s
+    ########################################################
+    dxl_io.set_moving_speed({2: vL}) # Degrees / s
+    dxl_io.set_moving_speed({1: -vR}) # Degrees / s
     # time.sleep(wait_time)
 
     debut_time = time.time()
     while(time.time-debut_time<wait_time):
         Print_position()
         time.sleep(1/frequency)
+
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
+    ########################################################
     v_rot = 180
     rotation = rotation*180/math.pi
     wait_rot = abs(rotation/v_rot)
