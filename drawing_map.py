@@ -1,54 +1,106 @@
-import cv2
-import numpy as np
+import pypot.dynamixel
 import math
+import time
+import matplotlib.pyplot as plt
 
-# Création d'une image vide pour représenter la carte
-map_image = np.ones((800,800, 3), dtype=np.uint8) * 255  # Fond blanc
+# Paramètres du robot
+wheelDiameter = 5.2  # en cm
+wheelDiameterSI = (wheelDiameter / 100)  # en mètres
+wheelDistance = 14.5  # en cm
+wheelDistanceSI = (wheelDistance / 100)  # en mètres
+frequency = 5  # en Hz (fréquence de mise à jour)
 
-# Position initiale du robot au centre de l'image (x, y)
-current_position = (250, 250)  # Centre de la carte
+# Initialiser matplotlib pour tracer en temps réel
+plt.ion()  # Mode interactif pour mise à jour en temps réel
+fig, ax = plt.subplots()
+ax.set_aspect('equal')
+line, = ax.plot([], [], 'b-', label="Path")  # Tracer le chemin
+arrow = ax.arrow(0, 0, 0.1, 0.1, head_width=0.05, head_length=0.1, fc='r', ec='r')
 
-# Simuler une fonction pour obtenir les données des capteurs
-def get_sensor_data():
-    # Simuler un déplacement avec une distance et un angle aléatoires (à remplacer par des données réelles)
-    # Par exemple, à chaque itération, nous allons faire avancer le robot d'une certaine distance
-    distance = np.random.randint(5, 15)  # Distance aléatoire entre 5 et 15 pixels
-    angle = np.random.uniform(0, 2 * math.pi)  # Angle aléatoire entre 0 et 360 degrés
-    return distance, angle
+# Fonction pour initialiser les moteurs Dynamixel
+def init(motors: list):
+    ports = pypot.dynamixel.get_available_ports()
+    if not ports:
+        exit('No port')
+    print(ports)
+
+    dxl_io = pypot.dynamixel.DxlIO(ports[0])
+    dxl_io.disable_torque(motors)
+    dxl_io.set_wheel_mode(motors)
+    return dxl_io
+
+# Fonction pour convertir les vitesses des roues en vitesse linéaire et angulaire
+def wheelSpeedConvertion(leftWheel, rightWheel):
+    leftWheelRad = leftWheel * (math.pi / 180)
+    rightWheelRad = rightWheel * (math.pi / 180)
+    linearSpeed = (wheelDiameterSI * (leftWheelRad + rightWheelRad)) / 2
+    angularSpeed = (wheelDiameterSI * (rightWheelRad - leftWheelRad)) / wheelDistanceSI
+    return linearSpeed, angularSpeed
+
+# Fonction pour calculer les changements de position (x, y) et d'orientation (theta)
+def speedToDelta(linearSpeed, angularSpeed, time, worldTeta):
+    if angularSpeed == 0:  # Mouvement en ligne droite
+        x = linearSpeed * time * math.cos(worldTeta)
+        y = linearSpeed * time * math.sin(worldTeta)
+        return x, y, 0
+    else:  # Mouvement en courbe
+        teta = angularSpeed * time
+        x = (linearSpeed * time) * math.cos(worldTeta + angularSpeed * time)
+        y = (linearSpeed * time) * math.sin(worldTeta + angularSpeed * time)
+        return x, y, teta
+
+# IDs des moteurs (gauche et droite)
+motorId = [1, 2]
+
+# Initialiser les moteurs Dynamixel
+dxl = init(motorId)
+
+# Variables de position et orientation du robot
+worldX = 0
+worldY = 0
+worldTeta = 0
+
+# Initialisation pour le traçage du chemin
+positions_x = [worldX]
+positions_y = [worldY]
 
 # Boucle principale pour suivre les déplacements du robot en temps réel
-while True:
-    # Récupérer les données simulées des capteurs (ou remplacer cette ligne par vos capteurs réels)
-    distance, angle = get_sensor_data()
+for i in range(1000):
+    # Récupérer les vitesses des roues (en degrés par seconde)
+    leftSpeed, rightSpeed = dxl.get_present_speed([1, 2])
+    
+    # Inverser la vitesse de la roue gauche si nécessaire
+    leftSpeed = -leftSpeed
+    
+    # Convertir les vitesses des roues en vitesse linéaire et angulaire
+    linearSpeed, angularSpeed = wheelSpeedConvertion(leftSpeed, rightSpeed)
+    
+    # Calculer les changements en x, y et theta
+    dx, dy, dtheta = speedToDelta(linearSpeed, angularSpeed, 1 / frequency, worldTeta)
+    
+    # Mettre à jour la position globale du robot
+    worldX += dx
+    worldY += dy
+    worldTeta += dtheta  # Mettre à jour l'orientation du robot
 
-    # Calculer les changements en x et y basés sur la distance et l'angle
-    dx = int(distance * math.cos(angle))
-    dy = int(distance * math.sin(angle))
+    # Ajouter les nouvelles coordonnées à la liste
+    positions_x.append(worldX)
+    positions_y.append(worldY)
+    
+    # Mettre à jour le graphique
+    line.set_data(positions_x, positions_y)  # Tracer le chemin
+    arrow.remove()  # Supprimer l'ancienne flèche
+    arrow = ax.arrow(worldX, worldY, 0.1 * math.cos(worldTeta), 0.1 * math.sin(worldTeta), 
+                     head_width=0.05, head_length=0.1, fc='r', ec='r')  # Flèche pour direction
+    
+    # Ajuster les limites du graphique
+    ax.relim()
+    ax.autoscale_view()
+    
+    # Dessiner les changements
+    plt.draw()
+    plt.pause(1 / frequency)  # Pause pour laisser le temps à matplotlib d'afficher
 
-    # Nouvelle position du robot
-    new_position = (current_position[0] + dx, current_position[1] + dy)
-
-    # Tracer une ligne entre l'ancienne et la nouvelle position
-    cv2.line(map_image, current_position, new_position, (0, 0, 255), 2)
-
-    # Mettre à jour la position courante
-    current_position = new_position
-
-    # Afficher la carte avec le chemin mis à jour en temps réel
-    cv2.imshow("Skyview Map", map_image)
-
-    # Attendre 50ms pour simuler le temps réel (et permettre de quitter avec la touche 'q')
-    if cv2.waitKey(50) & 0xFF == ord('q'):
-        break
-
-# Fermer toutes les fenêtres lorsque l'utilisateur quitte
-cv2.destroyAllWindows()
-
-# Enregistrer la carte finale comme image
-cv2.imwrite('skyview_map.png', map_image)
-def get_sensor_data():
-    # Remplacez par la récupération des données réelles du capteur
-    distance = read_distance_from_encoder()  # Lire la distance des encodeurs
-    angle = read_angle_from_imu()            # Lire l'angle de l'IMU
-    return distance, angle
-
+# Afficher le graphique final
+plt.ioff()  # Désactiver le mode interactif
+plt.show()  # Afficher le graphique

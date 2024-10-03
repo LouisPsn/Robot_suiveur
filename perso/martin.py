@@ -85,6 +85,9 @@ def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot
     # All distance are integers in milimeters
     # All angle are in °
     
+    if(center_detect_x == 0 and center_detect_y == 0 and center_robot_x == 0 and center_robot_y == 0):
+        return 0,0
+    
     hard_virage = False
     ecart_en_x = center_robot_x - center_detect_x
     ecrat_en_y = center_robot_y - center_detect_y
@@ -92,11 +95,10 @@ def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot
     if (ecrat_en_y < 0):
             hard_virage = True
             
-    if (ecart_en_x < 20 and ecart_en_x > -20 ):
+    if (ecart_en_x < 35 and ecart_en_x > -35 ):
         # same motor speed
         return 360, 360
     elif ecart_en_x > 1 :
-
         if (ecart_en_x > 0.5 * center_robot_x): #Petit virage à gauche car l'ecart entre le centre du rectangle et du robot est faible 
             if(hard_virage):
                 return 180, 0

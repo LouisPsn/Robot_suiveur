@@ -28,7 +28,7 @@ def main():
         except:
             continue
 
-        lower_blue = np.array([60, 140, 160]) 
+        lower_blue = np.array([140, 20, 0]) 
         upper_blue = np.array([180, 255, 255])  
 
         mask = cv2.inRange(hsv, lower_blue, upper_blue)
