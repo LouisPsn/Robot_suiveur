@@ -3,12 +3,16 @@ import matplotlib.pyplot as plt
 import math
 import time
 
+# définition des constantes
 wheelDiameter = 5.2 # in cm
 wheelDiameterSI = (wheelDiameter / 100)/2 # in m
 wheelDistance = 14.5 # in cm
 wheelDistanceSI = (wheelDistance/100)
 frequency = 2.5 # in Hz
 
+motorId = [1,2]
+
+# Initilisation des moteurs
 def init(motors:list):
     ports = pypot.dynamixel.get_available_ports()
     if not ports:
@@ -20,14 +24,27 @@ def init(motors:list):
     dxl_io.set_wheel_mode([1])
     return dxl_io
 
+
+dxl = init(motorId)
+worldX = 0
+worldY = 0
+worldTeta = 0
+
+
+
+Position=[]
+
+
+# récupère la vitesse des moteurs et redonne les vitesses linéaires et angulaires robot
 def wheelSpeedConvertion(leftWheel, RightWheel):
-    leftWheelRad = leftWheel * (math.pi/180)
+    leftWheelRad = leftWheel * (math.pi/180)        
     rightWheelRad = RightWheel * (math.pi/180)
     linearSpeed = (wheelDiameter * (leftWheelRad+rightWheelRad))/4
     angularSpeed = ((wheelDiameter * (leftWheelRad-rightWheelRad))/wheelDistance)/2
 
     return linearSpeed, angularSpeed
 
+# calcul x, y et theta actuel
 def speedToDelta(linearSpeed, angularSpeed, dt):
     '''
         if angularSpeed == 0: # TODO ajouter une tolerance
@@ -42,16 +59,7 @@ def speedToDelta(linearSpeed, angularSpeed, dt):
     y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
     return(x,y,teta)
 
-
-motorId = [1,2]
-
-dxl = init(motorId)
-worldX = 0
-worldY = 0
-worldTeta = 0
-
-Position=[]
-
+# Récupération des données et stockage dans Position
 for i in range(0,100):
     leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
     leftSpeed = -leftSpeed
@@ -64,6 +72,7 @@ for i in range(0,100):
     print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
     time.sleep(1/frequency)
 
+# Création et sauvegarde du parcours
 x, y = zip(*Position)
 
 plt.plot(x, y, marker='o', linestyle='-', color='b')
