@@ -4,9 +4,9 @@ import cv2
 from pypot.dynamixel import DxlIO
 
 # Constants
-WHEEL_BASE = 0.15  # distance between left and right wheels in meters
-WHEEL_RADIUS = 0.05  # radius of the wheel in meters
-IMG_SIZE = (500, 500)  # Size of the image to visualize path
+WHEEL_BASE = 0.14  # distance between left and right wheels in meters
+WHEEL_RADIUS = 0.026  # radius of the wheel in meters
+IMG_SIZE = (800, 800)  # Size of the image to visualize path
 dt = 0.1  # Time step in seconds
 
 # Initialize robot position and orientation
@@ -20,7 +20,7 @@ with DxlIO('/dev/ttyUSB0', baudrate=1000000) as dxl_io:
     # Assuming that wheel motors have IDs 1 and 2 (left and right wheels)
     motor_ids = [1, 2]
     
-    # Continuously get motor speeds and update the robot's position
+    # Continuously get motor speeds and update the robot's positiona
     while True:
         # Get angular velocity from motors (in rad/s)
         speeds = dxl_io.get_present_speed(motor_ids)  # Returns list of speeds for each motor ID
