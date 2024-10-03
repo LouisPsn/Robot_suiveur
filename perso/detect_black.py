@@ -38,7 +38,7 @@ def detect_black_line(frame):
     return mask, contours
 
 # Utiliser la caméra pour capturer les images en direct
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 while True:
     ret, frame = cap.read()
