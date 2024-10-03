@@ -149,12 +149,14 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     if rotation > 180:
         rotation -= 180
     if rotation < -180:
-        rotation +=180
+        rotation += 180
     
     if rotation < 0:
         sens = -1
     else:
         sens = 1
+    
+    print("rotation : ", rotation)
     
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
