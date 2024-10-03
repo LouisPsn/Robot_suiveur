@@ -116,7 +116,7 @@ def compute_motor_command_2(x, y, theta_util):
     
     
     # Calcul de la rotation initial du robot
-    v_rot = 1080
+    v_rot = 50
     rotation = theta*180/math.pi
     wait_rot = abs(rotation/v_rot)
     print("rotation : ", rotation)
