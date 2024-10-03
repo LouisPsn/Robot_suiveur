@@ -39,7 +39,7 @@ def compute_motor_command_1(x, y, theta_util):
         dxl_io.set_wheel_mode([1])
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
-        time_sleep = ((robot_width/2)*math.pi)/v_rot
+        time_sleep = ((robot_width/2)*math.pi)/(v_rot*math.pi/180*v_rot)
         time.sleep(time_sleep)
         
         y = -y
@@ -101,6 +101,7 @@ def compute_motor_command_1(x, y, theta_util):
 def compute_motor_command_2(x, y, theta_util):
     wheel_perimeter = 162
     robot_width = 145
+    v_rot = 180
     
     if y != 0:
         theta = math.atan(x/y)
@@ -115,7 +116,7 @@ def compute_motor_command_2(x, y, theta_util):
         dxl_io.set_wheel_mode([1])
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
-        time_sleep = ((robot_width/2)*math.pi)/v_rot
+        time_sleep = ((robot_width/2)*math.pi)/(v_rot*math.pi/180*v_rot)
         time.sleep(time_sleep)
         
         y = -y
@@ -136,7 +137,7 @@ def compute_motor_command_2(x, y, theta_util):
     # Rotation du robot
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    wait_rot = ((robot_width/2)*math.pi)/v_rot
+    wait_rot = ((robot_width/2)*math.pi)/(v_rot*math.pi/180*v_rot)
     time.sleep(wait_rot)
     
     # Calcul de la translation du robot
@@ -165,7 +166,7 @@ def compute_motor_command_2(x, y, theta_util):
     # Rotation finale du robot
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    wait_rot = ((robot_width/2)*math.pi)/v_rot
+    wait_rot = ((robot_width/2)*math.pi)/(v_rot*math.pi/180*v_rot)
     time.sleep(wait_rot)
     
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
@@ -187,7 +188,7 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     
     dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s180
     dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-    wait_rot = ((robot_width/2)*math.pi)/v_rot
+    wait_rot = ((robot_width/2)*math.pi)/(v_rot*math.pi/180*v_rot)
     time.sleep(wait_rot)
     
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
