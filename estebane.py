@@ -24,9 +24,10 @@ diametre_roue = 5.2
 rayon_roue = diametre_roue/2
 perimetre_roue = rayon_roue*2*3.1415
 
-angle=0
+angle_robot=0
 
-
+angletotal_roue_1 = 0
+angletotal_roue_2 = 0
 
 # qzlrilibz
 dxl_io.set_wheel_mode([2])
