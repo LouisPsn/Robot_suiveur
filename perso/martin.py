@@ -85,6 +85,9 @@ def compute_speed(center_detect_x, center_detect_y, center_robot_x, center_robot
     # All distance are integers in milimeters
     # All angle are in °
     
+    if(center_detect_x == 0 and center_detect_y == 0 and center_robot_x == 0 and center_robot_y == 0):
+        return 0,0
+    
     hard_virage = False
     ecart_en_x = center_robot_x - center_detect_x
     ecrat_en_y = center_robot_y - center_detect_y
