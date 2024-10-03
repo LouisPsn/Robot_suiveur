@@ -10,15 +10,6 @@ wheelDistance = 14.5 # in cm
 wheelDistanceSI = (wheelDistance/100)
 frequency = 2.5 # in Hz
 
-dxl = init(motorId)
-worldX = 0
-worldY = 0
-worldTeta = 0
-
-motorId = [1,2]
-
-Position=[]
-
 # Initilisation des moteurs
 def init(motors:list):
     ports = pypot.dynamixel.get_available_ports()
@@ -30,6 +21,17 @@ def init(motors:list):
     dxl_io.disable_torque(motors)
     dxl_io.set_wheel_mode([1])
     return dxl_io
+
+
+dxl = init(motorId)
+worldX = 0
+worldY = 0
+worldTeta = 0
+
+motorId = [1,2]
+
+Position=[]
+
 
 # récupère la vitesse des moteurs et redonne les vitesses linéaires et angulaires robot
 def wheelSpeedConvertion(leftWheel, RightWheel):
