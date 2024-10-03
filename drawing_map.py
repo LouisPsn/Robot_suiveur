@@ -61,7 +61,7 @@ except KeyboardInterrupt:
     # If interrupted by keyboard, we stop the loop
     pass
 
-# Plot the path using matplotlib
+#plot the path using matplotlib
 plt.figure()
 plt.plot(path_x, path_y, marker='o', color='r')
 plt.title("Robot Path")
@@ -73,8 +73,8 @@ plt.axis('equal')  # To keep aspect ratio equal
 # Save the figure as an image
 plt.savefig("robot_path.png")  # Save the plot as a PNG file
 
-# Display the plot
-plt.show()
+# Remove plt.show() because it's not needed in a non-interactive environment
+
 
 # Cleanup
 dxl_io.close()
