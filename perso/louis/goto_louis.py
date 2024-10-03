@@ -102,6 +102,8 @@ def compute_motor_command_2(x, y, theta_util):
         else:
             theta = -math.pi/2
 
+    print("theta : ", theta)
+
     if theta > 180:
         theta -= 360
     if theta < -180:
