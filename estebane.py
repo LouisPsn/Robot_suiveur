@@ -10,8 +10,8 @@ if not ports:
     exit('No port')
 dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
-current_position_1=0
-current_position_2=0
+current_position_1=(0,0)
+current_position_2=(0,0)
 
 past_position_1=0
 past_position_2=0
