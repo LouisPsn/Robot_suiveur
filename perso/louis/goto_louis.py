@@ -92,6 +92,7 @@ def compute_motor_command_2(x, y, theta_util):
     wheel_perimeter = 161.16
     robot_width = 145
     v_rot = 180
+    v_trans = 1080
     
     if y != 0:
         theta = math.atan(x/y)
@@ -133,9 +134,9 @@ def compute_motor_command_2(x, y, theta_util):
     distance = math.sqrt(x**2 + y**2)
     
     # Transalation du robot
-    wait_trans = distance/(wheel_perimeter*(v_rot/360))
-    dxl_io.set_moving_speed({2: 720}) # Degrees / s
-    dxl_io.set_moving_speed({1: -720}) # Degrees / s
+    wait_trans = distance/(wheel_perimeter*(v_trans/360))
+    dxl_io.set_moving_speed({2: v_trans}) # Degrees / s
+    dxl_io.set_moving_speed({1: -v_trans}) # Degrees / s
     time.sleep(wait_trans)
     dxl_io.set_moving_speed({2: 0}) # Degrees / s
     dxl_io.set_moving_speed({1: 0}) # Degrees / s
