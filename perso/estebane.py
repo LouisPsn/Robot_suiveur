@@ -25,7 +25,7 @@ def init(motors:list):
 motorId = [1,2]
 
 dxl = init(motorId)
-worldX = 0
+
 worldY = 0
 worldTeta = 0
 
@@ -103,9 +103,12 @@ plt.savefig('parcours.png')
 
 def main():
 
-    consigne_x, consigne_y, consigne_theta, method = get_coordinate()
+    worldX = 0
 
-    Error_x = consigne_x-worldX
+    #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
+
+    consigne_x = 1000
+    Error_x = consigne_x - worldX
 
     while( abs(Error_x)<1 ):
         
@@ -126,12 +129,12 @@ def main():
 
         time.sleep(1/frequency)
 
-        
+'''       
 def main_1():
 
     consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
-    Error_x = consigne_x-worldX
+    Error_x = consigne_x - worldX
     Error_theta = consigne_theta - worldTeta
 
     while( abs(Error_theta)<1 ):
@@ -178,5 +181,6 @@ def main_1():
 
         time.sleep(1/frequency)
 
+'''
 
 main()
