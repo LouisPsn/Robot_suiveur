@@ -149,10 +149,10 @@ def main_1():
     while( abs(Error_theta)>1 ):
 
         Error_theta = consigne_theta- worldTheta
-        v_rot = Ktheta*Error_x
-        if(v_rot>2*360):
-            v_rot=2*360
-        sens=1
+        v_rot = Ktheta*Error_theta
+        if(v_rot>360):
+            v_rot=360
+        sens=-1
         dxl_io.set_moving_speed({2: sens*v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: sens*v_rot}) # Degrees / s
 
