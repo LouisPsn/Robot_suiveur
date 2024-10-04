@@ -26,8 +26,9 @@ motorId = [1,2]
 
 dxl_io = init(motorId)
 
+worldX = 0
 worldY = 0
-worldTeta = 0
+worldTheta = 0
 
 Position=[]
 
@@ -67,8 +68,8 @@ def speedToDelta(linearSpeed, angularSpeed, dt):
 
     '''
     teta = angularSpeed*dt
-    x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
-    y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
+    x = (linearSpeed*dt)*(math.cos(worldTheta + angularSpeed*dt))
+    y = (linearSpeed*dt)*(math.sin(worldTheta + angularSpeed*dt))
     return(x,y,teta)
 
 '''
@@ -100,11 +101,11 @@ plt.grid()
 plt.savefig('parcours.png')
 '''
 
-
+'''
 def main():
 
-    worldX = 0
-    Kx=1
+    global worldX, worldY, worldTeta
+    Kx=10
 
     #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
@@ -112,10 +113,11 @@ def main():
     Error_x = consigne_x - worldX
 
     while( abs(Error_x)>1 ):
-        
+
+        Error_x = consigne_x - worldX
         v_rot = Kx*Error_x
-        if(v_rot>180):
-            v_rot=180
+        if(v_rot>2*360):
+            v_rot=2*360
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
 
@@ -129,59 +131,64 @@ def main():
         print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
 
         time.sleep(1/frequency)
-
-'''       
+'''
 def main_1():
 
-    consigne_x, consigne_y, consigne_theta, method = get_coordinate()
+    global worldX, worldY, worldTheta
+    Kx=10
+    Ktheta=4
 
+    #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
+
+    consigne_x = 100
     Error_x = consigne_x - worldX
-    Error_theta = consigne_theta - worldTeta
 
-    while( abs(Error_theta)<1 ):
+    consigne_theta = 90
+    Error_theta = consigne_theta - worldTheta
 
+    while( abs(Error_theta)>1 ):
+        print(worldTheta)
+        Error_theta = consigne_theta- worldTheta/(math.pi/180)
+        print(Error_theta)
+        v_rot = Ktheta*Error_theta
+        if(v_rot>50):
+            v_rot=50
         sens=1
-        if Error_theta < 0 :
-            sens=-1
 
-        v_rot = Kx*Error_x
-        if(v_rot>180):
-            v_rot=180
-
-
-        leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
+        leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
         leftSpeed = -leftSpeed
         v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
         dx,dy,dteta = speedToDelta(v,teta,1/frequency)
         worldX += dx
         worldY += dy
-        worldTeta += dteta
-        print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+        worldTheta += dteta
+        print("{}, {}, {}".format(worldX,worldY,worldTheta/(math.pi/180)))
 
         dxl_io.set_moving_speed({2: sens*v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: sens*v_rot}) # Degrees / s
 
         time.sleep(1/frequency)
 
-    while( abs(Error_x)<1 ):
-        
+    worldTheta = 0
+
+    while( abs(Error_x)>1 ):
+
+        Error_x = consigne_x - worldX
         v_rot = Kx*Error_x
-        if(v_rot>180):
-            v_rot=180
+        if(v_rot>2*360):
+            v_rot=2*360
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
 
-        leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
+        leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
         leftSpeed = -leftSpeed
         v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
         dx,dy,dteta = speedToDelta(v,teta,1/frequency)
         worldX += dx
         worldY += dy
-        worldTeta += dteta
-        print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+        worldTheta += dteta
+        print("{}, {}, {}".format(worldX,worldY,worldTheta/(math.pi/180)))
 
         time.sleep(1/frequency)
 
-'''
-
-main()
+main_1()
