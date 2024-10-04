@@ -12,7 +12,7 @@ def main():
     lastOdoTickTime = time.time()
     odoTick = 0
     odoTickRate = 5
-    positionList = []
+    positionList = [(0,0)]
     worldX = 0
     worldY = 0
     worldTeta = 0
@@ -33,7 +33,7 @@ def main():
             case 2:
                 motor.stop_motor(dxl)
                 break
-            
+
         if bench:
             t2 = time.time()
             img_time = t2-t1
@@ -64,10 +64,17 @@ def main():
             lastSwitch = 0
             lineFollowingSavedPos = False
             print("[Status]: Status + 1")
+            
+            # reset odometry
+            odometry.saveImage(positionList, "map-{}.png".format(status))
+            worldX = 0
+            worldY = 0
+            worldTeta = 0
+            positionList = [(0,0)]
         else:
             lastSwitch += 1
     print("[Status]: Generatin map")
-    odometry.saveImage(positionList, "map.png")
+    
     print("[Status]: Deinit")
     cammera.release()
     print("[Status]: Good bye!")
