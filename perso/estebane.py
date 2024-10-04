@@ -149,7 +149,7 @@ def main_1():
     while( abs(Error_theta)>1 ):
 
         Error_theta = consigne_theta- worldTheta
-        v_rot = ktheta*Error_x
+        v_rot = Ktheta*Error_x
         if(v_rot>2*360):
             v_rot=2*360
         sens=1
