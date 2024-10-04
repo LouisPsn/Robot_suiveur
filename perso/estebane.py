@@ -100,12 +100,7 @@ plt.grid()
 plt.savefig('parcours.png')
 '''
 
-def avance(vrot, wait_time):
-    dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
-    dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
-    time.sleep(wait_time)
 
-Kx=1
 def main():
 
     consigne_x, consigne_y, consigne_theta, method = get_coordinate()
