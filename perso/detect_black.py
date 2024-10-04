@@ -3,16 +3,16 @@ import numpy as np
 import pypot.dynamixel
 
 # Set up motors
-ports = pypot.dynamixel.get_available_ports()
-if not ports:
-    exit('No port')
-dxl_io = pypot.dynamixel.DxlIO(ports[0])
+#ports = pypot.dynamixel.get_available_ports()
+#if not ports:
+#    exit("no ports")
+#dxl_io = pypot.dynamixel.DxlIO(ports[0])
 
-def setup_motors():
-    dxl_io.set_wheel_mode([1, 2])
+#def setup_motors():
+#    dxl_io.set_wheel_mode([1, 2])
 
-def command_motors(vL, vR):
-    dxl_io.set_moving_speed({1: -vL, 2: vR})
+#def command_motors(vL, vR):
+ #   dxl_io.set_moving_speed({1: -vL, 2: vR})
     
 def detect_black_line(frame):
     # Convertir l'image en niveaux de gris
@@ -20,7 +20,7 @@ def detect_black_line(frame):
 
     # Appliquer un seuillage pour détecter les pixels noirs
     # Tout ce qui est plus sombre que 50 est considéré comme noir
-    _, mask = cv2.threshold(gray, 60, 255, cv2.THRESH_BINARY_INV)
+    _, mask = cv2.threshold(gray, 80, 255, cv2.THRESH_BINARY_INV)
 
     # Optionnel : Appliquer des opérations morphologiques pour nettoyer l'image (érosion/dilatation)
     mask = cv2.erode(mask, None, iterations=2)
@@ -30,11 +30,37 @@ def detect_black_line(frame):
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Dessiner les contours sur l'image originale
-    #cv2.drawContours(frame, contours, -1, (0, 255, 0), 2)
+    cv2.drawContours(frame, contours, -1, (0, 255, 0), 2)
 
     # Afficher le masque avec la ligne noire isolée
-    #cv2.imshow('Ligne noire détectée', mask)
+    cv2.imshow('Ligne noire détectée', mask)
 
+    return mask, contours
+
+def detect_red_line(frame ):
+    try:
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    except:
+        pass
+    
+    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
+    lower_red1 = np.array([0, 120, 70])
+    upper_red1 = np.array([10, 255, 255])
+    lower_red2 = np.array([170, 120, 70])
+    upper_red2 = np.array([180, 255, 255])
+
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    mask = mask1 | mask2
+
+    mask = cv2.erode(mask, None, iterations=2)
+    mask = cv2.dilate(mask, None, iterations=2)
+    
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cv2.drawContours(frame, contours, -1, (0, 255, 0), 2)
+    cv2.imshow('contour rouge', mask)
+    
     return mask, contours
 
 # Utiliser la caméra pour capturer les images en direct
@@ -48,7 +74,8 @@ while True:
         break
 
     # Appeler la fonction de détection de ligne noire et des contours
-    mask, contours = detect_black_line(frame)
+    #mask, contours = detect_black_line(frame)
+    mask, contours = detect_red_line(frame)
     
     if contours:
         c = max(contours, key=cv2.contourArea)
@@ -57,23 +84,23 @@ while True:
         center_x = x + w // 2
         _, width, _ = frame.shape
 
-        if center_x > width/2 + width/4:
-            command_motors(40, 300)
-            saved_direction = [40, 300]
-        elif center_x < width/4:
-            command_motors(300, 40)
-            saved_direction = [300, 40]
-        else:
-            command_motors(300, 300)
-            saved_direction = [300, 300]
-    else:
-        if saved_direction[0] == saved_direction[1]:
-            command_motors(0, 0)
-        else:
-            command_motors(saved_direction[0], saved_direction[1])
+        #if center_x > width/2 + width/4:
+            #command_motors(40, 300)
+            #saved_direction = [40, 300]
+        #elif center_x < width/4:
+            #command_motors(300, 40)
+        #    #saved_direction = [300, 40]
+        #else:
+         #   command_motors(300, 300)
+          #  saved_direction = [300, 300]
+    #else:
+       # if saved_direction[0] == saved_direction[1]:
+           # command_motors(0, 0)
+        #else:
+            #command_motors(saved_direction[0], saved_direction[1])
 
     # Afficher l'image originale avec les contours
-    #cv2.imshow('Image originale avec contours', frame)
+    cv2.imshow('Image originale avec contours', frame)
 
     # Appuyer sur 'q' pour quitter
     if cv2.waitKey(1) & 0xFF == ord('q'):
