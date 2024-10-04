@@ -64,10 +64,10 @@ def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
         center_x = x + w // 2
         _, width, _ = frame.shape
 
-        if center_x > width/2 + width/4:
+        if center_x > width/3 + width/3:
             command_motors(30, 300, dxl)
             save_direction = True
-        elif center_x < width/4:
+        elif center_x < width/3:
             command_motors(300, 30, dxl)
             save_direction = True
         else:
