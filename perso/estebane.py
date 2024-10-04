@@ -141,7 +141,7 @@ def main_1():
     if(x==0):
         consigne_theta =0
     else :  
-        consigne_theta = math.tan(y/x)
+        consigne_theta = math.tan(y/x)/(math.pi/180)
     Error_theta = consigne_theta - worldTheta
 
     while( abs(Error_theta)>1 ):
