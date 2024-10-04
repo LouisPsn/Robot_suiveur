@@ -147,8 +147,9 @@ def main_1():
     Error_theta = consigne_theta - worldTheta
 
     while( abs(Error_theta)>1 ):
-
+        print(worldTheta)
         Error_theta = consigne_theta- worldTheta
+        print(Error_theta)
         v_rot = Ktheta*Error_theta
         if(v_rot>50):
             v_rot=50
