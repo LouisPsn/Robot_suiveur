@@ -169,6 +169,8 @@ def main_1():
 
         time.sleep(1/frequency)
 
+    worldTheta = 0
+
     while( abs(Error_x)>1 ):
 
         Error_x = consigne_x - worldX
