@@ -130,6 +130,8 @@ def compute_motor_command_2(x, y, theta_util):
         else:
             sens = 1
             
+        print("theta", theta)
+            
         # Rotation Initial du robot
         wait_rot = ((robot_width/2)*theta)/(wheel_perimeter*(v_rot/360))
         dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
@@ -141,6 +143,7 @@ def compute_motor_command_2(x, y, theta_util):
         
         # Calcul de la distance à parcourir
         distance = math.sqrt(x**2 + y**2)
+        print("distance", distance)
         
         # Transalation du robot
         wait_trans = distance/(wheel_perimeter*(v_trans/360))
@@ -169,6 +172,8 @@ def compute_motor_command_2(x, y, theta_util):
         print("rotation finale : ", rotation)
         
         rotation = rotation*math.pi/180
+        
+        print("rotation finale", rotation)
         
         # Rotation finale du robot
         wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
