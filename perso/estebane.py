@@ -70,7 +70,7 @@ def speedToDelta(linearSpeed, angularSpeed, dt):
     teta = angularSpeed*dt
     x = (linearSpeed*dt)*(math.cos(worldTheta + angularSpeed*dt))
     y = (linearSpeed*dt)*(math.sin(worldTheta + angularSpeed*dt))
-    return(x,y,teta/(math.pi/180))
+    return(x,y,teta)
 
 '''
 # Récupération des données et stockage dans Position
@@ -148,7 +148,7 @@ def main_1():
 
     while( abs(Error_theta)>1 ):
         print(worldTheta)
-        Error_theta = consigne_theta- worldTheta
+        Error_theta = consigne_theta- worldTheta/(math.pi/180)
         print(Error_theta)
         v_rot = Ktheta*Error_theta
         if(v_rot>50):
