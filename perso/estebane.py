@@ -136,7 +136,7 @@ def main_1():
 
     global worldX, worldY, worldTheta
     Kx=10
-    Ktheta=10
+    Ktheta=2
 
     #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
