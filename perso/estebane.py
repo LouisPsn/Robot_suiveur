@@ -10,15 +10,6 @@ wheelDistance = 14.5 # in cm
 wheelDistanceSI = (wheelDistance/100)
 frequency = 2.5 # in Hz
 
-motorId = [1,2]
-
-dxl = init(motorId)
-worldX = 0
-worldY = 0
-worldTeta = 0
-
-Position=[]
-
 # Initilisation des moteurs
 def init(motors:list):
     ports = pypot.dynamixel.get_available_ports()
@@ -30,6 +21,17 @@ def init(motors:list):
     dxl_io.disable_torque(motors)
     dxl_io.set_wheel_mode([1])
     return dxl_io
+
+motorId = [1,2]
+
+dxl = init(motorId)
+worldX = 0
+worldY = 0
+worldTeta = 0
+
+Position=[]
+
+
 
 def get_coordinate():
     print("Path method :")
@@ -98,9 +100,38 @@ plt.grid()
 plt.savefig('parcours.png')
 '''
 
+def avance(vrot, wait_time):
+    dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
+    dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
+    time.sleep(wait_time)
+
+Kx=1
 def main():
+
     consigne_x, consigne_y, consigne_theta, method = get_coordinate()
-    
+
+    Error_x = consigne_x-worldX
+
+    while( abs(Error_x)<1 ):
+        
+        v_rot = Kx*Error_x
+        if(v_rot>180):
+            v_rot=180
+        dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
+        dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
+
+        leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
+        leftSpeed = -leftSpeed
+        v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
+        dx,dy,dteta = speedToDelta(v,teta,1/frequency)
+        worldX += dx
+        worldY += dy
+        worldTeta += dteta
+        print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+
+        time.sleep(1/frequency)
+
+        
 
 
 
