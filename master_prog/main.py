@@ -21,9 +21,9 @@ def main():
     while(True):
         match status:
             case 0:
-                line_following.blackLineFolow(cammera, lineFollowingSavedPos, dxl)
+                lineFollowingSavedPos = line_following.blackLineFolow(cammera, lineFollowingSavedPos, dxl)
             case 1:
-                line_following.redLineFolow(cammera, lineFollowingSavedPos, dxl)
+                lineFollowingSavedPos = line_following.redLineFolow(cammera, lineFollowingSavedPos, dxl)
             case 2:
                 motor.stop_motor(dxl)
                 break
@@ -32,7 +32,10 @@ def main():
         if (odometryStatus and odoTick > odoTickRate):
             actualTime = time.time()
             dt = actualTime - lastOdoTickTime
-            odometry.odometryTick(positionList, worldX, worldY, worldTeta, dt, dxl)
+            dx, dy, dteta = odometry.odometryTick(positionList, worldX, worldY, worldTeta, dt, dxl)
+            worldX += dx
+            worldY += dy
+            worldTeta += dteta
             print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
             lastOdoTickTime = actualTime
             odoTick = 0

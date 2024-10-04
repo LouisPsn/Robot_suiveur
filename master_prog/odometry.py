@@ -31,6 +31,7 @@ def odometryTick(Position, worldX, worldY, worldTeta, deltaT, dxl):
     worldTeta += dteta
 
     Position.append((worldX, worldY))
+    return dx,dy,dteta
 
 def saveImage(Position, filename):
     x, y = zip(*Position)
