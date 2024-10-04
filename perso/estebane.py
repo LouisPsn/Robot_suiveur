@@ -101,7 +101,7 @@ plt.grid()
 plt.savefig('parcours.png')
 '''
 
-
+'''
 def main():
 
     global worldX, worldY, worldTeta
@@ -131,7 +131,7 @@ def main():
         print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
 
         time.sleep(1/frequency)
-
+'''
 def main_1():
 
     global worldX, worldY, worldTheta
@@ -187,4 +187,4 @@ def main_1():
 
         time.sleep(1/frequency)
 
-main()
+main_1()
