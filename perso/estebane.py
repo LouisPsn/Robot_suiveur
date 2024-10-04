@@ -105,7 +105,7 @@ plt.savefig('parcours.png')
 def main():
 
     global worldX, worldY, worldTeta
-    Kx=1
+    Kx=3
 
     #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
@@ -113,11 +113,11 @@ def main():
     Error_x = consigne_x - worldX
 
     while( abs(Error_x)>1 ):
-        
+
         Error_x = consigne_x - worldX
         v_rot = Kx*Error_x
-        if(v_rot>180):
-            v_rot=180
+        if(v_rot>360):
+            v_rot=360
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
 
