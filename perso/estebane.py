@@ -70,7 +70,7 @@ def speedToDelta(linearSpeed, angularSpeed, dt):
     teta = angularSpeed*dt
     x = (linearSpeed*dt)*(math.cos(worldTheta + angularSpeed*dt))
     y = (linearSpeed*dt)*(math.sin(worldTheta + angularSpeed*dt))
-    return(x,y,teta)
+    return(x,y,teta/(math.pi/180))
 
 '''
 # Récupération des données et stockage dans Position
