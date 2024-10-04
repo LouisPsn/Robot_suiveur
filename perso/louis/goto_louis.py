@@ -36,10 +36,10 @@ def compute_motor_command_1(x, y, theta_util):
     # Retourne le robot si la coordonnée en ordonnée est négative
     if (y < 0):
         time_sleep = ((robot_width/2)*math.pi)/(wheel_perimeter*(v_rot/360))
-        dxl_io.set_wheel_mode([1])
-        dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
-        dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
-        time.sleep(time_sleep)
+        # dxl_io.set_wheel_mode([1])
+        # dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
+        # dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
+        # time.sleep(time_sleep)
         
         y = -y
         x = -x
@@ -93,7 +93,7 @@ def compute_motor_command_2(x, y, theta_util):
         wheel_perimeter = 161.16
         robot_width = 145
         v_rot = 180
-        v_trans = 2160
+        v_trans = 1080
         
         print("x : ", x)
         print("y : ", y)
@@ -101,10 +101,10 @@ def compute_motor_command_2(x, y, theta_util):
         # Retourne le robot si la coordonnée en ordonnée est négative
         if (y < 0):
             time_sleep = ((robot_width/2)*math.pi)/(wheel_perimeter*(v_rot/360))
-            dxl_io.set_wheel_mode([1])
-            dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
-            dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
-            time.sleep(time_sleep)
+            # dxl_io.set_wheel_mode([1])
+            # dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
+            # dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
+            # time.sleep(time_sleep)
             
             y = -y
             x = -x
@@ -132,11 +132,11 @@ def compute_motor_command_2(x, y, theta_util):
             
         # Rotation Initial du robot
         wait_rot = ((robot_width/2)*theta)/(wheel_perimeter*(v_rot/360))
-        dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
-        dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-        time.sleep(wait_rot)
-        dxl_io.set_moving_speed({2: 0}) # Degrees / s
-        dxl_io.set_moving_speed({1: 0}) # Degrees / s    
+        # dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
+        # dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+        # time.sleep(wait_rot)
+        # dxl_io.set_moving_speed({2: 0}) # Degrees / s
+        # dxl_io.set_moving_speed({1: 0}) # Degrees / s    
         
         
         # Calcul de la distance à parcourir
@@ -144,17 +144,19 @@ def compute_motor_command_2(x, y, theta_util):
         
         # Transalation du robot
         wait_trans = distance/(wheel_perimeter*(v_trans/360))
-        dxl_io.set_moving_speed({2: v_trans}) # Degrees / s
-        dxl_io.set_moving_speed({1: -v_trans}) # Degrees / s
-        time.sleep(wait_trans)
-        dxl_io.set_moving_speed({2: 0}) # Degrees / s
-        dxl_io.set_moving_speed({1: 0}) # Degrees / s
+        # dxl_io.set_moving_speed({2: v_trans}) # Degrees / s
+        # dxl_io.set_moving_speed({1: -v_trans}) # Degrees / s
+        # time.sleep(wait_trans)
+        # dxl_io.set_moving_speed({2: 0}) # Degrees / s
+        # dxl_io.set_moving_speed({1: 0}) # Degrees / s
         
         
         
         
         # Préparation de la rotation finale
         rotation = theta_util - theta
+        
+        print("rotation finale : ", rotation)
         
         if rotation > 180:
             rotation -= 180*2
@@ -168,21 +170,21 @@ def compute_motor_command_2(x, y, theta_util):
         
         # Rotation finale du robot
         wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
-        dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
-        dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
-        time.sleep(wait_rot)
-        dxl_io.set_moving_speed({2: 0}) # Degrees / s
-        dxl_io.set_moving_speed({1: 0}) # Degrees / s
+        # dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
+        # dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+        # time.sleep(wait_rot)
+        # dxl_io.set_moving_speed({2: 0}) # Degrees / s
+        # dxl_io.set_moving_speed({1: 0}) # Degrees / s
         
 def send_command_to_motors(vL, vR, wait_time, rotation):
     robot_width = 145
     wheel_perimeter = 161.16
     
-    dxl_io.set_moving_speed({2: vL}) # Degrees / s
-    dxl_io.set_moving_speed({1: -vR}) # Degrees / s
-    time.sleep(wait_time)
-    dxl_io.set_moving_speed({2: 0}) # Degrees / s
-    dxl_io.set_moving_speed({1: 0}) # Degrees / s
+    # dxl_io.set_moving_speed({2: vL}) # Degrees / s
+    # dxl_io.set_moving_speed({1: -vR}) # Degrees / s
+    # time.sleep(wait_time)
+    # dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    # dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     v_rot = 180
     
@@ -196,14 +198,12 @@ def send_command_to_motors(vL, vR, wait_time, rotation):
     else:
         sens = 1
     
-    
-    dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
-    dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
     wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
-    time.sleep(wait_rot)
-
-    dxl_io.set_moving_speed({2: 0}) # Degrees / s
-    dxl_io.set_moving_speed({1: 0}) # Degrees / s
+    # dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
+    # dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
+    # time.sleep(wait_rot)
+    # dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    # dxl_io.set_moving_speed({1: 0}) # Degrees / s
     
     
 def main():
