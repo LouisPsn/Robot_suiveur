@@ -26,6 +26,7 @@ motorId = [1,2]
 
 dxl_io = init(motorId)
 
+worldX = 0
 worldY = 0
 worldTeta = 0
 
@@ -103,7 +104,7 @@ plt.savefig('parcours.png')
 
 def main():
 
-    worldX = 0
+    global worldX, worldY, worldTeta
     Kx=1
 
     #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
