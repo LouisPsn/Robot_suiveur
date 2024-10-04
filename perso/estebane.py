@@ -143,8 +143,7 @@ def main_1():
         v_rot = Kx*Error_x
         if(v_rot>180):
             v_rot=180
-        dxl_io.set_moving_speed({2: sens*v_rot}) # Degrees / s
-        dxl_io.set_moving_speed({1: sens*v_rot}) # Degrees / s
+
 
         leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
         leftSpeed = -leftSpeed
@@ -154,6 +153,9 @@ def main_1():
         worldY += dy
         worldTeta += dteta
         print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+
+        dxl_io.set_moving_speed({2: sens*v_rot}) # Degrees / s
+        dxl_io.set_moving_speed({1: sens*v_rot}) # Degrees / s
 
         time.sleep(1/frequency)
 
