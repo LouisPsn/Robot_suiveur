@@ -104,6 +104,7 @@ plt.savefig('parcours.png')
 def main():
 
     worldX = 0
+    Kx=1
 
     #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
