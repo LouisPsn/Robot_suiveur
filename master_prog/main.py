@@ -33,6 +33,7 @@ def main():
             actualTime = time.time()
             dt = actualTime - lastOdoTickTime
             odometry.odometryTick(positionList, worldX, worldY, worldTeta, dt, dxl)
+            print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
             lastOdoTickTime = actualTime
             odoTick = 0
         else:
