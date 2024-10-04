@@ -107,10 +107,10 @@ def main():
 
     #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
-    consigne_x = 1000
+    consigne_x = 100
     Error_x = consigne_x - worldX
 
-    while( abs(Error_x)<1 ):
+    while( abs(Error_x)>1 ):
         
         v_rot = Kx*Error_x
         if(v_rot>180):
