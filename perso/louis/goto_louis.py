@@ -170,6 +170,7 @@ def compute_motor_command_2(x, y, theta_util):
         
         # Rotation finale du robot
         wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
+        print("wait rot", wait_rot)
         dxl_io.set_moving_speed({2: v_rot*sens}) # Degrees / s
         dxl_io.set_moving_speed({1: v_rot*sens}) # Degrees / s
         time.sleep(wait_rot)
