@@ -3,6 +3,29 @@ from motor import command_motors
 import numpy as np
 from color_constant import *
 
+def lineFollow(mask, frame, save_direction, dxl):
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if contours:
+        c = max(contours, key=cv2.contourArea)
+        x, _, w, _ = cv2.boundingRect(c)
+        
+        center_x = x + w // 2
+        _, width, _ = frame.shape
+        
+        if center_x > width/2 + width/4:
+            command_motors(20, 220, dxl)
+            save_direction = True
+        elif center_x < width/4:
+            command_motors(220, 20, dxl)
+            save_direction = True
+        else:
+            command_motors(220, 220, dxl)
+            save_direction = False
+    else:
+        if not save_direction:
+            command_motors(0, 0, dxl)
+
+
 def blackLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
 
@@ -21,26 +44,7 @@ def blackLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (29,29))
     morph = cv2.morphologyEx(morph, cv2.MORPH_CLOSE, kernel)
 
-    contours, _ = cv2.findContours(morph, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    if contours:
-        c = max(contours, key=cv2.contourArea)
-        x, _, w, _ = cv2.boundingRect(c)
-        
-        center_x = x + w // 2
-        _, width, _ = frame.shape
-        
-        if center_x > width/2 + width/4:
-            command_motors(20, 320, dxl)
-            save_direction = True
-        elif center_x < width/4:
-            command_motors(320, 20, dxl)
-            save_direction = True
-        else:
-            command_motors(320, 320, dxl)
-            save_direction = False
-    else:
-        if not save_direction:
-            command_motors(20, 320, dxl)
+    lineFollow(morph, frame, save_direction, dxl)
 
 def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
@@ -57,26 +61,7 @@ def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
-    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    if contours:
-        c = max(contours, key=cv2.contourArea)
-        x, _, w, _ = cv2.boundingRect(c)
-
-        center_x = x + w // 2
-        _, width, _ = frame.shape
-
-        if center_x > width/2 + width/4:
-            command_motors(20, 320, dxl)
-            save_direction = True
-        elif center_x < width/4:
-            command_motors(320, 20, dxl)
-            save_direction = True
-        else:
-            command_motors(320, 320, dxl)
-            save_direction = False
-    else:
-        if not save_direction:
-            command_motors(20, 320, dxl)
+    lineFollow(mask, frame, save_direction, dxl)
 
 
 
