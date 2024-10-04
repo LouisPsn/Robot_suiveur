@@ -35,17 +35,12 @@ Position=[]
 
 
 def get_coordinate():
-    print("Path method :")
-    method = int(input())
     print("Enter x :")
     x = int(input())
     print("Enter y :")
-    y = int(input())
-    print("Enter theta :")
     theta = int(input())
-    theta = theta
 
-    return x, y, theta, method
+    return x, y
 
 
 # Récupèration la vitesse des moteurs et redonne les vitesses linéaires et angulaires robot
@@ -138,12 +133,15 @@ def main_1():
     Kx=10
     Ktheta=4
 
-    #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
+    x, y= get_coordinate()
 
-    consigne_x = 100
+    consigne_x = math.sqrt(x*x + y*y)
     Error_x = consigne_x - worldX
 
-    consigne_theta = 90
+    if(x==0):
+        consigne_theta =0
+    else :  
+        consigne_theta = math.tan(y/x)
     Error_theta = consigne_theta - worldTheta
 
     while( abs(Error_theta)>1 ):
