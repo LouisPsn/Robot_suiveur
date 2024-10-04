@@ -24,7 +24,7 @@ def init(motors:list):
 
 motorId = [1,2]
 
-dxl = init(motorId)
+dxl_io = init(motorId)
 
 worldY = 0
 worldTeta = 0
@@ -118,7 +118,7 @@ def main():
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
 
-        leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
+        leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
         leftSpeed = -leftSpeed
         v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
         dx,dy,dteta = speedToDelta(v,teta,1/frequency)
