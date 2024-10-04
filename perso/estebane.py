@@ -150,8 +150,8 @@ def main_1():
 
         Error_theta = consigne_theta- worldTheta
         v_rot = Ktheta*Error_theta
-        if(v_rot>360):
-            v_rot=360
+        if(v_rot>50):
+            v_rot=50
         sens=1
 
         leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
