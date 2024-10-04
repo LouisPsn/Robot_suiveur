@@ -73,15 +73,27 @@ for i in range(0,100):
     time.sleep(1/frequency)
 
 # Création et sauvegarde du parcours
-x, y = zip(*Position)
+#x, y = zip(*Position)
+
+x_values = [t[0] for t in Position]  # Première valeur de chaque tuple
+y_values = [t[1] for t in Position]
 
 print(len(Position))
 
-plt.plot(x, y, marker='o', linestyle='-', color='b')
-
-plt.title('Parcours du robot')
+plt.plot(x_values, y_values, marker='o')  # 'o' pour marquer les points
+plt.title('Graphique des tuples')
 plt.xlabel('Axe X')
 plt.ylabel('Axe Y')
 plt.grid()
+plt.show()
 
 plt.savefig('parcours.png')
+
+#plt.plot(x, y, marker='o', linestyle='-', color='b')
+
+#plt.title('Parcours du robot')
+#plt.xlabel('Axe X')
+#plt.ylabel('Axe Y')
+#plt.grid()
+
+p#lt.savefig('parcours.png')
