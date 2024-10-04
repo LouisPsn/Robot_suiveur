@@ -39,7 +39,7 @@ def blackLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
             save_direction = False
     else:
         if not save_direction:
-            command_motors(320, 20, dxl)
+            command_motors(0, 0, dxl)
 
 def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
@@ -65,17 +65,17 @@ def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
         _, width, _ = frame.shape
 
         if center_x > width/2 + width/4:
-            command_motors(20, 320, dxl)
+            command_motors(40, 300, dxl)
             save_direction = True
         elif center_x < width/4:
-            command_motors(320, 20, dxl)
+            command_motors(300, 40, dxl)
             save_direction = True
         else:
-            command_motors(320, 320, dxl)
+            command_motors(300, 300, dxl)
             save_direction = False
     else:
         if not save_direction:
-            command_motors(320, 20, dxl)
+            command_motors(0, 0, dxl)
 
 
 
