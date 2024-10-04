@@ -54,7 +54,7 @@ def main():
             lastOdoTickTime = actualTime
             odoTick = 0
             if bench:
-                print("mean fps on last 5 frames: {}", 1/fps_mean)
+                print("mean fps on last {} frames: {}".format(odoTickRate, 1/fps_mean))
         else:
             odoTick += 1
         

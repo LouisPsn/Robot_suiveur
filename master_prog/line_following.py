@@ -76,7 +76,7 @@ def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
             save_direction = False
     else:
         if not save_direction:
-            command_motors(0, 0, dxl)
+            command_motors(300, 20, dxl)
     return save_direction
 
 
