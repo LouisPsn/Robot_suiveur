@@ -3,7 +3,7 @@ from motor import command_motors
 import numpy as np
 from color_constant import *
 
-def blackLineFolow(cap:cv2.VideoCapture, saved_direction:list, dxl):
+def blackLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()
             
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -30,18 +30,16 @@ def blackLineFolow(cap:cv2.VideoCapture, saved_direction:list, dxl):
 
         if center_x > width/2 + width/4:
             command_motors(40, 300, dxl)
-            saved_direction = [40, 300]
+            save_direction = True
         elif center_x < width/4:
             command_motors(300, 40, dxl)
-            saved_direction = [300, 40]
+            save_direction = True
         else:
             command_motors(300, 300, dxl)
-            saved_direction = [300, 300]
+            save_direction = False
     else:
-        if saved_direction[0] == saved_direction[1]:
+        if not save_direction:
             command_motors(0, 0, dxl)
-        else:
-            command_motors(saved_direction[0], saved_direction[1], dxl)
 
 def redLineFolow(cap:cv2.VideoCapture, save_direction:bool, dxl):
     _, frame = cap.read()

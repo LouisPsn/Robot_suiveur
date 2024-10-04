@@ -24,8 +24,8 @@ def init(motors:list):
 
 motorId = [1,2]
 
-dxl = init(motorId)
-worldX = 0
+dxl_io = init(motorId)
+
 worldY = 0
 worldTeta = 0
 
@@ -103,11 +103,15 @@ plt.savefig('parcours.png')
 
 def main():
 
-    consigne_x, consigne_y, consigne_theta, method = get_coordinate()
+    worldX = 0
+    Kx=1
 
-    Error_x = consigne_x-worldX
+    #consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
-    while( abs(Error_x)<1 ):
+    consigne_x = 100
+    Error_x = consigne_x - worldX
+
+    while( abs(Error_x)>1 ):
         
         v_rot = Kx*Error_x
         if(v_rot>180):
@@ -115,7 +119,7 @@ def main():
         dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: -v_rot}) # Degrees / s
 
-        leftSpeed, rightSpeed = dxl.get_present_speed([1,2])
+        leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
         leftSpeed = -leftSpeed
         v,teta = wheelSpeedConvertion(rightSpeed, leftSpeed)
         dx,dy,dteta = speedToDelta(v,teta,1/frequency)
@@ -126,12 +130,12 @@ def main():
 
         time.sleep(1/frequency)
 
-        
+'''       
 def main_1():
 
     consigne_x, consigne_y, consigne_theta, method = get_coordinate()
 
-    Error_x = consigne_x-worldX
+    Error_x = consigne_x - worldX
     Error_theta = consigne_theta - worldTeta
 
     while( abs(Error_theta)<1 ):
@@ -178,5 +182,6 @@ def main_1():
 
         time.sleep(1/frequency)
 
+'''
 
 main()

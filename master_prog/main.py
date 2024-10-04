@@ -42,6 +42,7 @@ def main():
         if(lastSwitch > 100 and line_following.yellow_detected(cammera)):
             status += 1
             lastSwitch = 0
+            lineFollowingSavedPos = False
             print("[Status]: Status + 1")
         else:
             lastSwitch += 1
