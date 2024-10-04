@@ -152,7 +152,7 @@ def main_1():
         v_rot = Ktheta*Error_theta
         if(v_rot>360):
             v_rot=360
-        sens=-1
+        sens=1
 
         leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
         leftSpeed = -leftSpeed
