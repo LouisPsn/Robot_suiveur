@@ -168,6 +168,8 @@ def compute_motor_command_2(x, y, theta_util):
         
         print("rotation finale : ", rotation)
         
+        rotation = rotation*math.pi/180
+        
         # Rotation finale du robot
         wait_rot = ((robot_width/2)*rotation*sens)/(wheel_perimeter*(v_rot/360))
         print("wait rot", wait_rot)
