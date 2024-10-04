@@ -114,6 +114,7 @@ def main():
 
     while( abs(Error_x)>1 ):
         
+        Error_x = consigne_x - worldX
         v_rot = Kx*Error_x
         if(v_rot>180):
             v_rot=180
