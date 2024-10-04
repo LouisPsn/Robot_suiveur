@@ -38,7 +38,7 @@ def get_coordinate():
     print("Enter x :")
     x = int(input())
     print("Enter y :")
-    theta = int(input())
+    y = int(input())
 
     return x, y
 
