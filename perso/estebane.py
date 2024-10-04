@@ -164,8 +164,8 @@ def main_1():
         worldTheta += dteta
         print("{}, {}, {}".format(worldX,worldY,worldTheta/(math.pi/180)))
 
-        dxl_io.set_moving_speed({2: sens*v_rot}) # Degrees / s
-        dxl_io.set_moving_speed({1: sens*v_rot}) # Degrees / s
+        dxl_io.set_moving_speed({2: v_rot}) # Degrees / s
+        dxl_io.set_moving_speed({1: v_rot}) # Degrees / s
 
         time.sleep(1/frequency)
 
