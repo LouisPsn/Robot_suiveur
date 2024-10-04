@@ -154,6 +154,8 @@ def main_1():
         if(v_rot>50):
             v_rot=50
         sens=1
+        if(Error_theta<0):
+            sens=-1
 
         leftSpeed, rightSpeed = dxl_io.get_present_speed([1,2])
         leftSpeed = -leftSpeed
@@ -190,5 +192,8 @@ def main_1():
         print("{}, {}, {}".format(worldX,worldY,worldTheta/(math.pi/180)))
 
         time.sleep(1/frequency)
+
+    dxl_io.set_moving_speed({2: 0}) # Degrees / s
+    dxl_io.set_moving_speed({1: 0}) # Degrees / s
 
 main_1()
