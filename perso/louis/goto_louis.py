@@ -93,7 +93,7 @@ def compute_motor_command_2(x, y, theta_util):
         wheel_perimeter = 161.16
         robot_width = 145
         v_rot = 180
-        v_trans = 1080
+        v_trans = 720
         
         print("x : ", x)
         print("y : ", y)
