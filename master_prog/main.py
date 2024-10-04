@@ -11,14 +11,20 @@ def main():
     lastSwitch = 0
     lastOdoTickTime = time.time()
     odoTick = 0
-    odoTickRate = 10
+    odoTickRate = 5
     positionList = []
     worldX = 0
     worldY = 0
     worldTeta = 0
+    bench = True
+    t1, t2 = None
+    fps_mean = -1
 
     print("[Status]: Main loop")
     while(True):
+        if bench:
+            t1 = time.time()
+
         match status:
             case 0:
                 lineFollowingSavedPos = line_following.blackLineFolow(cammera, lineFollowingSavedPos, dxl)
@@ -27,6 +33,14 @@ def main():
             case 2:
                 motor.stop_motor(dxl)
                 break
+            
+        if bench:
+            t2 = time.time()
+            img_time = t2-t1
+            if(fps_mean == -1):
+                fps_mean = img_time
+            else:
+                fps_mean = (fps_mean + img_time) / 2
         
         #Odometry section
         if (odometryStatus and odoTick > odoTickRate):
@@ -39,6 +53,8 @@ def main():
             print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
             lastOdoTickTime = actualTime
             odoTick = 0
+            if bench:
+                print("mean fps on last 5 frames: {}", 1/fps_mean)
         else:
             odoTick += 1
         
