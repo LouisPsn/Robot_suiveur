@@ -68,8 +68,8 @@ def speedToDelta(linearSpeed, angularSpeed, dt):
 
     '''
     teta = angularSpeed*dt
-    x = (linearSpeed*dt)*(math.cos(worldTeta + angularSpeed*dt))
-    y = (linearSpeed*dt)*(math.sin(worldTeta + angularSpeed*dt))
+    x = (linearSpeed*dt)*(math.cos(worldTheta + angularSpeed*dt))
+    y = (linearSpeed*dt)*(math.sin(worldTheta + angularSpeed*dt))
     return(x,y,teta)
 
 '''
@@ -160,8 +160,8 @@ def main_1():
         dx,dy,dteta = speedToDelta(v,teta,1/frequency)
         worldX += dx
         worldY += dy
-        worldTeta += dteta
-        print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+        worldTheta += dteta
+        print("{}, {}, {}".format(worldX,worldY,worldTheta/(math.pi/180)))
 
         dxl_io.set_moving_speed({2: sens*v_rot}) # Degrees / s
         dxl_io.set_moving_speed({1: sens*v_rot}) # Degrees / s
@@ -183,8 +183,8 @@ def main_1():
         dx,dy,dteta = speedToDelta(v,teta,1/frequency)
         worldX += dx
         worldY += dy
-        worldTeta += dteta
-        print("{}, {}, {}".format(worldX,worldY,worldTeta/(math.pi/180)))
+        worldTheta += dteta
+        print("{}, {}, {}".format(worldX,worldY,worldTheta/(math.pi/180)))
 
         time.sleep(1/frequency)
 
